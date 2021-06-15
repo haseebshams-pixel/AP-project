@@ -1,0 +1,8 @@
+#start{
+    display:flex;
+    justify-content: space-between;
+}
+#course{
+    display: flex;
+    flex-direction: row;
+}
