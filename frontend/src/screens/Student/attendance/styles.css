@@ -33,40 +33,21 @@
     flex-direction: column;
     padding: 10px 10px 10px 10px;
 }
-.containerr{
-    width: 100%;
-}
-.componenthead{
-    border: 1px solid rgba(128,128,128,0.5);
-    margin: 3px 3px 3px 3px;
-}
-.componentbody{
-    border-left: 1px solid rgba(128,128,128,0.5);
-    border-right: 1px solid rgba(128,128,128,0.5);
-    border-bottom: 1px solid rgba(128,128,128,0.5);
-    padding: 10px 10px 10px 10px;
-    margin: -3px 3px 3px 3px;
-}
-.componentbtn{
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 10px 10px 10px 10px;
-}   
 table{
     width:100%;
     /* table-layout: fixed; */
   }
-  .tbl-headerr{
+  .tbl-headerrr{
     background: -webkit-linear-gradient(left, #25c481, #25b7c4);
     background: linear-gradient(to right, #25c481, #25b7c4);
     
     display: flex;
     position: relative;
+    margin-top: 2%;
    }
-  .tbl-contentt{
+  .tbl-contentr{
     /*height:300px;*/
-    max-height: 200px;
+    max-height: 450px;
     display: flex;
     position: relative;
     overflow-x:auto;

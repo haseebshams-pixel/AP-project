@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { NavLink } from "react-router-dom";
+import { NavLink, useHistory } from "react-router-dom";
 
 //All the svg files
 import Register from "../assets/registered.svg";
@@ -196,13 +196,17 @@ const Sidebar = () => {
 
   const [profileClick, setprofileClick] = useState(false);
   const handleProfileClick = () => setprofileClick(!profileClick);
-
+  
+  const history = useHistory();
   return (
     <Container>
       <Button clicked={click} onClick={() => handleClick()}>
-        <text style={{color:"#29bf8c"}}>Click</text>
+        <text style={{ color: "#29bf8c" }}>Click</text>
       </Button>
       <SidebarContainer>
+      <Logo>
+          <img src={Home} alt="logo" />
+        </Logo>
         <SlickBar clicked={click}>
           <Item
             onClick={() => setClick(false)}
@@ -273,8 +277,23 @@ const Sidebar = () => {
             <Text clicked={click}>UpdateProfile</Text>
           </Item>
         </SlickBar>
+        <Profile clicked={profileClick}>
+          <img
+            onClick={() => handleProfileClick()}
+            src="https://picsum.photos/200"
+            alt="Profile"
+          />
+          <Details clicked={profileClick}>
+            <Name>
+              <h4>Haseeb Shams</h4>
+            </Name>
 
-        
+            <Logout onClick ={()=>history.push('/')}>
+              <img src={PowerOff} alt="logout" />
+            </Logout>
+          </Details>
+        </Profile>
+
       </SidebarContainer>
     </Container>
   );

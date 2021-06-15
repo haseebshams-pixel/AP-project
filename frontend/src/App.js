@@ -16,7 +16,7 @@ function App() {
     <>
       <AnimatePresence exitBeforeEnter>
         <Switch location={location} key={location.pathname}>
-          <Route exact path="/" component={User} />
+          <Route exact path="/" component={StudLogin} />
           <Route path="/studLogin" component={StudLogin} />
           <Route path="/teachLogin" component={TeachLogin} />
           <Route path="/admin" component={Admin} />

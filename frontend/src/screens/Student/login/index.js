@@ -1,14 +1,14 @@
 import React,{useState} from 'react'
-import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 
 import './style.css';
 import { ReactComponent as BGIcon } from '../../../images/bg.svg';
 import { ReactComponent as AvatarIcon } from '../../../images/avatar.svg';
 import wave from '../../../images/wave.png';
-import Main from '../main';
 
 const Login = () => {
+    const history = useHistory();
     return (
         <div>
             <img class="wave" src={wave} />
@@ -36,7 +36,7 @@ const Login = () => {
                                 <input type="password" class="input" placeholder = "Password"/>
                             </div>
                         </div>
-                        <Link className="btn" to="/studhome" >Login</Link>
+                        <button className="btn" onClick={()=>history.push("/studhome")} >Login</button>
                     </div>
                 </div>
             </div>
