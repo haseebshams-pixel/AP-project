@@ -1,0 +1,35 @@
+.adStart{
+    background-color: white;
+    width: 50vw;
+    color: #333;
+}
+.adContentr{
+    background: -webkit-linear-gradient(left, #25c481, #25b7c4);
+    background: linear-gradient(to right, #25c481, #25b7c4);  
+    color: black;
+    height: 40vh;
+    padding: 25px;
+}
+.pair{
+    flex-direction: row;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    padding: 15px;
+}
+.modalbtn{
+    border-radius: 10px;
+    border: 1px solid white;
+    height: 40px;
+    width: 200px;
+    color: white;
+    background-image: linear-gradient(to right, #32be8f, #38d39f, #32be8f);
+	background-size: 200%;
+    font-size: 1rem;  
+    cursor: pointer;
+	transition: .5s;
+}
+.modalbtn:hover{
+	background-position: right;
+    border: none;
+}

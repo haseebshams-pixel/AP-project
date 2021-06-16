@@ -1,4 +1,5 @@
-import React,{useState} from 'react'
+import React,{useState} from 'react';
+import {useHistory} from 'react-router-dom';
 
 import './style.css';
 import { ReactComponent as BGIcon } from '../../../images/adminbg.svg';
@@ -6,6 +7,7 @@ import { ReactComponent as AvatarIcon } from '../../../images/avatar.svg';
 import wave from '../../../images/wave.png';
 
 const Login = () => {
+    const history = useHistory();
     return (
         <div>
             <img class="wave" src={wave} />
@@ -33,7 +35,7 @@ const Login = () => {
                                 <input type="password" class="input" placeholder = "Password"/>
                             </div>
                         </div>
-                        <input type="submit" class="btn" value="Login" />
+                        <button class="btn" onClick={()=>history.push('/adminhome')}>Login</button>
                     </div>
                 </div>
             </div>

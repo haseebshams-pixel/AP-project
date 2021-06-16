@@ -1,0 +1,70 @@
+.back{
+
+}
+.head{
+    position: absolute;
+    top: 0%;
+    flex-direction: row;
+    display: flex;
+}
+.Icon{
+    display: flex;
+    width: 20px;
+}
+.logoStyle{
+    width: 50px;
+    height: 50px;
+    padding: 8px;
+}
+.headtext{
+    text-align: center;
+    color: #333;
+    text-transform: uppercase;
+    font-family: "Poppins", sans-serif;
+}
+.firstcontent{
+    display: flex;
+    justify-content: center;
+    width: 100vw;
+    height: 100vh;
+    align-items:center;
+}
+.box{
+    background-color: white;
+    width: 15%;
+    height: 40%;
+    align-items: center;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    margin-right: 1%;
+    color: #29bf8c;
+    border: 1px solid rgba(137, 171, 245, 0.5);
+}
+.box:hover{
+    color: #333;
+    background-color: #29bf8c;
+    border: none;
+}
+.studIcon{
+    width: 175px;
+    height: 175px;
+}
+.box2{
+    background-color: white;
+    width: 15%;
+    height: 40%;
+    align-items: center;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    color: #29bf8c;
+    border: 1px solid rgba(137, 171, 245, 0.5);
+}
+.box2:hover{
+    color: #333;
+    background-color: #29bf8c;
+    border: none;
+}
