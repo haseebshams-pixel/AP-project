@@ -1,5 +1,6 @@
 import React,{useState} from 'react';
 import {useHistory} from 'react-router-dom';
+import axios from "axios";
 
 import './style.css';
 import { ReactComponent as BGIcon } from '../../../images/teachbg.svg';
@@ -8,6 +9,20 @@ import wave from '../../../images/wave.png';
 
 const Login = () => {
     const history = useHistory();
+    const [username,setUsername] = useState('');
+    const [password,setPassword] = useState('');
+    const [userType,setUserType]=useState('teacher');
+    function authenticate () {
+        axios.get(`http://localhost:8080/api/user/${username}/${password}/${userType}`)
+        .then((res)=>{
+            console.log(res);
+            if(res.data==1){
+                history.push("/teachhome");
+            } else if(res.data==0) {
+                alert('Incorrect Credentials');
+            }
+        })
+    }
     return (
         <div>
             <img class="wave" src={wave} />
@@ -24,7 +39,7 @@ const Login = () => {
                                 <i class="fas fa-user"></i>
                             </div>
                             <div class="div">
-                                <input type="text" class="input" placeholder ="Username" />
+                                <input type="text" class="input" placeholder ="Username" value={username} onChange={(e)=>setUsername(e.target.value)} />
                             </div>
                         </div>
                         <div class="input-div pass">
@@ -32,10 +47,10 @@ const Login = () => {
                                 <i class="fas fa-lock"></i>
                             </div>
                             <div class="div">
-                                <input type="password" class="input" placeholder = "Password"/>
+                                <input type="password" class="input" placeholder = "Password" value={password} onChange={(e)=>setPassword(e.target.value)}/>
                             </div>
                         </div>
-                        <button class="btn" onClick={()=>history.push('/teachhome')}>Login</button>
+                        <button class="btn" onClick={authenticate}>Login</button>
                     </div>
                 </div>
             </div>

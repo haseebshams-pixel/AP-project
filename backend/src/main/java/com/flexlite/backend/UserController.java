@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/user")
 @CrossOrigin
 public class UserController {
     @Autowired
@@ -19,6 +19,11 @@ public class UserController {
     @GetMapping("/{id}")
     public User GetUser(@PathVariable Integer id) {
         return userRepository.findById(id).orElse(null);
+    }
+    @GetMapping("/{username}/{password}/{userType}")
+    public int GetUser(@PathVariable("username") String username,@PathVariable("password") String password,@PathVariable("userType") String userType) {
+        //System.out.println(userType);
+        return userRepository.User_Login(username, password,userType);
     }
     @PostMapping("/")
     public User PostUser(@RequestBody User user) {
