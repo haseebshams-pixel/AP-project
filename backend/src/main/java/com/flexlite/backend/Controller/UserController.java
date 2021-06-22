@@ -1,6 +1,9 @@
-package com.flexlite.backend;
+package com.flexlite.backend.Controller;
 
 import java.util.List;
+
+import com.flexlite.backend.Model.User;
+import com.flexlite.backend.Repository.UserRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -22,7 +25,6 @@ public class UserController {
     }
     @GetMapping("/{username}/{password}/{userType}")
     public int GetUser(@PathVariable("username") String username,@PathVariable("password") String password,@PathVariable("userType") String userType) {
-        //System.out.println(userType);
         return userRepository.User_Login(username, password,userType);
     }
     @PostMapping("/")
