@@ -1,15 +1,17 @@
+import React, { Component } from 'react'
+import DropdownButton from 'react-bootstrap/DropdownButton';
+import Dropdown from 'react-bootstrap/Dropdown'
+
 import MotionHoc from '../MotionHoc';
 
 import './style.css'
-
-
-import React, { Component } from 'react'
 
 class RegistrationComponent extends Component {
 
   constructor(props) {
     super(props);
     this.state = {
+      value:'A',
       course: [
         {
           id: 1,
@@ -28,15 +30,19 @@ class RegistrationComponent extends Component {
         },
       ]
     };
+    this.handleChange=this.handleChange.bind(this);
   }
-
+  handleChange=(e)=>{
+    this.setState({value:e.target.value});
+    //alert(this.state.value);
+  }
   render() {
     const listItems = this.state.course.map((item) => (
       <tr>
         <td width="150px">{item.code}</td>
         <td width="250px">{item.name}</td>
         <td ALIGN="center" width="115px">
-          <select>
+          <select  onChange={this.handleChange} value={this.state.value}>
             <option value="A">A</option>
             <option value="B">B</option>
             <option value="C">C</option>

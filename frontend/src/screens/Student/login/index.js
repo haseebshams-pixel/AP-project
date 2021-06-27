@@ -6,6 +6,7 @@ import './style.css';
 import { ReactComponent as BGIcon } from '../../../images/bg.svg';
 import { ReactComponent as AvatarIcon } from '../../../images/avatar.svg';
 import wave from '../../../images/wave.png';
+import UserProfile from '../../../Session';
 
 const Login = () => {
     const history = useHistory();
@@ -16,9 +17,11 @@ const Login = () => {
         axios.get(`http://localhost:8080/api/user/${username}/${password}/${userType}`)
         .then((res)=>{
             console.log(res);
-            if(res.data==1){
+            if(res.data!=-1){
                 history.push("/studhome");
-            } else if(res.data==0) {
+                UserProfile.setID(res.data);
+                UserProfile.setLoggedIn(true);
+            } else {
                 alert('Incorrect Credentials');
             }
             

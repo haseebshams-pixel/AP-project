@@ -18,10 +18,7 @@ import lombok.NoArgsConstructor;
 public class Teacher {
     @Id
     @GeneratedValue
-    @Column(name = "UserId", nullable = false)
     private int UserId;
-    @Column(name = "Salary", nullable = false)
     private int Salary;
-    @Column(name = "DateJoined", nullable = false)
     private String DateJoined;
 }

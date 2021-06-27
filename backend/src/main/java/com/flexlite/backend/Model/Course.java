@@ -18,18 +18,11 @@ import lombok.NoArgsConstructor;
 public class Course {
     @Id
     @GeneratedValue
-    @Column(name = "Id", nullable = false)
     private int Id;
-    @Column(name = "name", nullable = false)
     private String name;
-    @Column(name = "CreditHours", nullable = false)
     private int CreditHours;
-    @Column(name = "DepID", nullable = false)
     private int DepID;
-    @Column(name = "SemesterNo", nullable = false)
     private int SemesterNo;
-    @Column(name = "CourseCode", nullable = false)
-    private int CourseCode;
-    @Column(name = "Type", nullable = false)
-    private int Type;
+    private String CourseCode;
+    private String Type;
 }

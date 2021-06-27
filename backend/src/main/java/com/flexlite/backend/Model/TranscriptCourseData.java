@@ -18,12 +18,8 @@ import lombok.NoArgsConstructor;
 public class TranscriptCourseData {
     @Id
     @GeneratedValue
-    @Column(name = "Id", nullable = false)
     private int Id;
-    @Column(name = "CourseID", nullable = false)
     private int CourseID;
-    @Column(name = "Grade", nullable = false)
     private String Grade;
-    @Column(name = "TranscriptID", nullable = false)
     private int TranscriptID;
 }

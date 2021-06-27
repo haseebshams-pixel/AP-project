@@ -12,7 +12,7 @@ import Transcript from "../transcript";
 import Drop from "../drop";
 import Withdraw from "../withdraw";
 import Maintenance from "../maintenance";
-
+import UserProfile from '../../../Session';
 
 const Pages = styled.div`
   width: 100vw;
@@ -27,21 +27,25 @@ function Main() {
   const location = useLocation();
   return (
     <>
-      <Sidebar />
-      <Pages>
-        <AnimatePresence exitBeforeEnter>
-          <Switch location={location} key={location.pathname}>
-            <Route exact path="/studhome" component={Home} />
-            <Route path="/studhome/registration" component={Registration} />
-            <Route path="/studhome/attendance" component={Attendance} />
-            <Route path="/studhome/marks" component={Marks} />
-            <Route path="/studhome/transcript" component={Transcript} />
-            <Route path="/studhome/drop" component={Drop} />
-            <Route path="/studhome/withdraw" component={Withdraw} />
-            <Route path="/studhome/maintenance" component={Maintenance} />
-          </Switch>
-        </AnimatePresence>
-      </Pages>
+      {UserProfile.getLoggedIn() ?
+        <>
+          <Sidebar />
+          <Pages>
+            <AnimatePresence exitBeforeEnter>
+              <Switch location={location} key={location.pathname}>
+                <Route exact path="/studhome" component={Home} />
+                <Route path="/studhome/registration" component={Registration} />
+                <Route path="/studhome/attendance" component={Attendance} />
+                <Route path="/studhome/marks" component={Marks} />
+                <Route path="/studhome/transcript" component={Transcript} />
+                <Route path="/studhome/drop" component={Drop} />
+                <Route path="/studhome/withdraw" component={Withdraw} />
+                <Route path="/studhome/maintenance" component={Maintenance} />
+              </Switch>
+            </AnimatePresence>
+          </Pages>
+        </>
+        : <h1>ERROR PAGE NOT FOUND</h1>}
     </>
   );
 }

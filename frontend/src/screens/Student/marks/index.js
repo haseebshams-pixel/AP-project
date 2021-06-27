@@ -1,13 +1,15 @@
 import React, { Component } from 'react'
+import axios from 'axios';
 
 import MotionHoc from '../MotionHoc';
 import marksCss from './style.css';
-
+import UserProfile from '../../../Session';
 
 class MarkComponent extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      courses:[],
       courseName: '',
       open: false,
       assignmentComp:false,
@@ -55,6 +57,13 @@ class MarkComponent extends Component {
         }
       ]
     };
+  }
+  componentDidMount(){
+    axios.get(`http://localhost:8080/api/course/getCourse/${UserProfile.getId()}`)
+    .then((res)=>{
+      this.setState({courses:res.data})
+      console.log(this.state.courses)
+    })
   }
   render() {
     return (

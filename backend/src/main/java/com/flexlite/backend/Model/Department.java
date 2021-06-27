@@ -18,14 +18,9 @@ import lombok.NoArgsConstructor;
 public class Department {
     @Id
     @GeneratedValue
-    @Column(name = "id", nullable = false)
     private  int id;
-    @Column(name = "name", nullable = false)
     private  String name;
-    @Column(name = "RegBool", nullable = false)
     private  boolean RegBool;
-    @Column(name = "Withdrawbool", nullable = false)
     private  boolean Withdrawbool;
-    @Column(name = "TranscriptBool", nullable = false)
     private  boolean TranscriptBool;
 }

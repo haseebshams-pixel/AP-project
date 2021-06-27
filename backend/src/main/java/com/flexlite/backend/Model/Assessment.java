@@ -18,16 +18,10 @@ import lombok.NoArgsConstructor;
 public class Assessment {
     @Id
     @GeneratedValue
-    @Column(name = "Id", nullable = false)
     private int Id;
-    @Column(name = "TotalMarks", nullable = false)
     private int TotalMarks;
-    @Column(name = "ObtainedMarks", nullable = false)
     private float ObtainedMarks;
-    @Column(name = "Type", nullable = false)
     private String Type;
-    @Column(name = "Weightage", nullable = false)
     private float Weightage;
-    @Column(name = "RegistrationID", nullable = false)
     private int RegistrationID;
 }

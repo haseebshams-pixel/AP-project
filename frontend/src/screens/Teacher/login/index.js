@@ -16,9 +16,9 @@ const Login = () => {
         axios.get(`http://localhost:8080/api/user/${username}/${password}/${userType}`)
         .then((res)=>{
             console.log(res);
-            if(res.data==1){
+            if(res.data!=-1){
                 history.push("/teachhome");
-            } else if(res.data==0) {
+            }else {
                 alert('Incorrect Credentials');
             }
         })

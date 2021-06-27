@@ -11,16 +11,16 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "student")
+@Table(name = "registration")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Student {
+public class Registration {
     @Id
     @GeneratedValue
-    private int UserId;
-    private String RollNo;
-    private String Program;
-    private int semesterNo; 
-    private String batch;
+    private int Id;
+    private String Grade;
+    private int StudentID;
+    private int SectionID;
+    private String Status;
 }

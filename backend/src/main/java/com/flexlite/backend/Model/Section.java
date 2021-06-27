@@ -18,16 +18,10 @@ import lombok.NoArgsConstructor;
 public class Section {
     @Id
     @GeneratedValue
-    @Column(name = "Id", nullable = false)
     private int Id;
-    @Column(name = "name", nullable = false)
     private String name;
-    @Column(name = "StdLimit", nullable = false)
     private int StdLimit;
-    @Column(name = "StdReg", nullable = false)
     private int StdReg;
-    @Column(name = "CourseID", nullable = false)
     private int CourseID;
-    @Column(name = "TeacherID", nullable = false)
     private int TeacherID;
 }
