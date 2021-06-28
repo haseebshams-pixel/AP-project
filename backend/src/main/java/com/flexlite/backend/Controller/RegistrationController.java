@@ -27,6 +27,14 @@ public class RegistrationController {
     public int UpdateStatus(@PathVariable("regId") Integer regId) {
         return registrationRepository.Update_Status(regId);
     }
+    @GetMapping("/updateSection/{regId}")
+    public int UpdateSectionStatus(@PathVariable("regId") Integer regId) {
+        return registrationRepository.Update_Sections(regId);
+    }
+    @GetMapping("/registerCourse/{studId}/{secName}/{courseId}")
+    public int RegisterCourse(@PathVariable("studId") Integer studId,@PathVariable("secName") String secName,@PathVariable("courseId") Integer courseId) {
+        return registrationRepository.Register(studId, secName, courseId);
+    }
     @PostMapping("/")
     public Registration PostUser(@RequestBody Registration user) {
         return registrationRepository.save(user);

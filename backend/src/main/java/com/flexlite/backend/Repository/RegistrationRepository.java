@@ -12,4 +12,8 @@ public interface RegistrationRepository extends JpaRepository<Registration,Integ
     //int update_status(@Param("regId")Integer regId);
     @Procedure
     int Update_Status(Integer regId);
+    @Procedure
+    int Update_Sections(Integer regId);
+    @Procedure
+    int Register(Integer studId,String secName,Integer courseId);
 }

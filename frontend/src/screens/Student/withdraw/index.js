@@ -10,7 +10,7 @@ class WithdrawComponent extends Component {
     super(props);
     this.state = {
       courses: [],
-      registerId:0,
+      registerId: 0,
     };
   }
   componentDidMount() {
@@ -21,12 +21,16 @@ class WithdrawComponent extends Component {
       })
   }
   render() {
-    const handleclick=()=>{
+    const handleclick = () => {
       console.log(this.state.registerId)
-      axios.get(`http://localhost:8080/api/register/update/${this.state.registerId}`)
-      .then((res) => {
-        this.componentDidMount();
-      })
+      axios.get(`http://localhost:8080/api/register/updateSection/${this.state.registerId}`)
+        .then(() => {
+          axios.get(`http://localhost:8080/api/register/update/${this.state.registerId}`)
+            .then((res) => {
+              this.componentDidMount();
+            })
+        })
+
     }
     return (
       <div>
@@ -49,7 +53,7 @@ class WithdrawComponent extends Component {
                       <td width="150px">{item.courseCode}</td>
                       <td width="250px">{item.name}</td>
                       <td ALIGN="center" width="115px">{item.section_name}</td>
-                      <td ><button class="button2" onClick={()=>this.setState({registerId:item.registrationId},()=>handleclick())}>With Draw!</button></td>
+                      <td ><button class="button2" onClick={() => this.setState({ registerId: item.registrationId }, () => handleclick())}>With Draw!</button></td>
                     </tr>
                   ))}
 

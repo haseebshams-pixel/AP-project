@@ -12,7 +12,7 @@ class DropComponent extends Component {
     super(props);
     this.state = {
       courses: [],
-      registerId:0,
+      registerId: 0,
     };
   }
   componentDidMount() {
@@ -28,14 +28,18 @@ class DropComponent extends Component {
         <td width="150px">{item.courseCode}</td>
         <td width="250px">{item.name}</td>
         <td ALIGN="center" width="115px">{item.section_name}</td>
-        <td ><button class="button" onClick={()=>this.setState({registerId:item.registrationId},()=>handleClick())}>Drop!</button></td>
+        <td ><button class="button" onClick={() => this.setState({ registerId: item.registrationId }, () => handleClick())}>Drop!</button></td>
       </tr>
     ))
     const handleClick = () => {
-      axios.delete(`http://localhost:8080/api/register/${this.state.registerId}`)
+      axios.get(`http://localhost:8080/api/register/updateSection/${this.state.registerId}`)
         .then(() => {
-          this.componentDidMount();
+          axios.delete(`http://localhost:8080/api/register/${this.state.registerId}`)
+            .then(() => {
+              this.componentDidMount();
+            })
         })
+
     }
     return (
       <div>
