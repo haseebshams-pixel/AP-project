@@ -6,6 +6,7 @@ import './style.css';
 import { ReactComponent as BGIcon } from '../../../images/teachbg.svg';
 import { ReactComponent as AvatarIcon } from '../../../images/avatar.svg';
 import wave from '../../../images/wave.png';
+import UserProfile from '../../../Session';
 
 const Login = () => {
     const history = useHistory();
@@ -17,6 +18,8 @@ const Login = () => {
         .then((res)=>{
             console.log(res);
             if(res.data!=-1){
+                UserProfile.setID(res.data);
+                UserProfile.setLoggedIn(true);
                 history.push("/teachhome");
             }else {
                 alert('Incorrect Credentials');

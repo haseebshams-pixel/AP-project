@@ -8,7 +8,7 @@ import Home from "../home"
 import AddAttendence from "../addAttendence";
 import AddMarks from "../addMarks";
 import Maintenance from "../maintenance";
-
+import UserProfile from '../../../Session';
 
 const Pages = styled.div`
   width: 100vw;
@@ -23,17 +23,21 @@ function Main() {
   const location = useLocation();
   return (
     <>
-      <Sidebar />
-      <Pages>
-        <AnimatePresence exitBeforeEnter>
-          <Switch location={location} key={location.pathname}>
-            <Route exact path="/teachhome" component={Home} />
-            <Route path="/teachhome/addattendance" component={AddAttendence} />
-            <Route path="/teachhome/addmarks" component={AddMarks} />
-            <Route path="/teachhome/maintenance" component={Maintenance} />
-          </Switch>
-        </AnimatePresence>
-      </Pages>
+      {UserProfile.getLoggedIn() ?
+        <>
+          <Sidebar />
+          <Pages>
+            <AnimatePresence exitBeforeEnter>
+              <Switch location={location} key={location.pathname}>
+                <Route exact path="/teachhome" component={Home} />
+                <Route path="/teachhome/addattendance" component={AddAttendence} />
+                <Route path="/teachhome/addmarks" component={AddMarks} />
+                <Route path="/teachhome/maintenance" component={Maintenance} />
+              </Switch>
+            </AnimatePresence>
+          </Pages>
+        </>
+        : <h1>ERROR PAGE NOT FOUND</h1>}
     </>
   );
 }

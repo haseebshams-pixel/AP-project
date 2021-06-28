@@ -1,24 +1,36 @@
-import MotionHoc from '../MotionHoc';
-
-import './style.css'
-
 import React, { Component } from 'react'
+import axios from 'axios';
+
+
+import MotionHoc from '../MotionHoc';
+import UserProfile from '../../../Session';
+import './style.css'
 
 class HomeComponent extends Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      name:'Sarim Baig',
-      post:'Head Instructor',
-      degree:'BS(CS)',
       campus:'Lahore',
-      age:'31',
-      gender:'Male',
-      email:'sarim.baig@nu.edu.pk',
-      password:'123456',
-      phonenumber:'03077044820',
+      user:[],
+      teacher:[],
     };
+  }
+  componentDidMount(){
+    axios.get(`http://localhost:8080/api/user/${UserProfile.getId()}`)
+    .then((res)=>{
+    console.log(res.data)
+      this.setState({
+        user:res.data,
+      })
+    })
+    axios.get(`http://localhost:8080/api/teacher/${UserProfile.getId()}`)
+    .then((res)=>{
+      console.log(res.data)
+      this.setState({
+        teacher:res.data,
+      })
+    })
   }
   render() {
     return (
@@ -29,11 +41,11 @@ class HomeComponent extends Component {
           </div>
           <div class="originalinfo">
             <div class="columnspan">
-              <p> <span style={{ fontweight: 300, marginleft: "-5%" }}><b> Post : </b></span> <span> {this.state.post}  </span>  </p>
+              <p> <span style={{ fontweight: 300, marginleft: "-5%" }}><b> Salary : </b></span> <span> {this.state.teacher.salary}  </span>  </p>
               <p > <span style={{ fontweight: 300, marginleft: "-106px" }}><b>  Campus : </b></span> {this.state.campus} <span> </span> </p>
             </div>
             <div class="columnspan">
-              <p > <span style={{ fontweight: 300, marginleft: "-75%" }}><b> Degree : </b></span> <span> {this.state.degree} </span> </p>
+              <p > <span style={{ fontweight: 300, marginleft: "-75%" }}><b> Date Joined : </b></span> <span> {this.state.teacher.dateJoined} </span> </p>
             </div>
           </div>
         </div>
@@ -43,11 +55,11 @@ class HomeComponent extends Component {
           </div>
           <div class="originalinfo">
           <div class="columnspan">
-              <p> <span style={{ fontweight: 300, marginleft: "-5%" }}><b> Name  : </b></span> <span> {this.state.name}  </span>  </p>
-              <p > <span style={{ fontweight: 300, marginleft: "-106px" }}><b>  Gender : </b></span> {this.state.gender} <span> </span> </p>
+              <p> <span style={{ fontweight: 300, marginleft: "-5%" }}><b> Name  : </b></span> <span> {this.state.user.name}  </span>  </p>
+              <p > <span style={{ fontweight: 300, marginleft: "-106px" }}><b>  Gender : </b></span> {this.state.user.gender} <span> </span> </p>
             </div>
             <div class="columnspan">
-              <p > <span style={{ fontweight: 300, marginleft: "-75%" }}><b> Age : </b></span> <span> {this.state.age} </span> </p>
+              <p > <span style={{ fontweight: 300, marginleft: "-75%" }}><b> Date of Birth : </b></span> <span> {this.state.user.dob} </span> </p>
             </div>
           </div>
         </div>
@@ -57,11 +69,11 @@ class HomeComponent extends Component {
           </div>
           <div class="originalinfo">
           <div class="columnspan">
-              <p> <span style={{ fontweight: 300, marginleft: "-5%" }}><b> Email  : </b></span> <span> {this.state.email}  </span>  </p>
-              <p > <span style={{ fontweight: 300, marginleft: "-106px" }}><b>  PhoneNumber : </b></span> {this.state.phonenumber} <span> </span> </p>
+              <p> <span style={{ fontweight: 300, marginleft: "-5%" }}><b> Email  : </b></span> <span> {this.state.user.email}  </span>  </p>
+              <p > <span style={{ fontweight: 300, marginleft: "-106px" }}><b>  PhoneNumber : </b></span> {this.state.user.mobileno} <span> </span> </p>
             </div>
             <div class="columnspan">
-              <p > <span style={{ fontweight: 300, marginleft: "-75%" }}><b> Password : </b></span> <span> {this.state.password} </span> </p>
+              <p > <span style={{ fontweight: 300, marginleft: "-75%" }}><b> Password : </b></span> <span> {this.state.user.password} </span> </p>
             </div>
           </div>
         </div>

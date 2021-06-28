@@ -8,7 +8,7 @@ import Mark from "../assets/marks.svg";
 import Attendance from "../assets/attendance.svg";
 import Update from "../assets/update.svg";
 import PowerOff from "../assets/power-off-solid.svg";
-
+import UserProfile from '../../../Session';
 
 const Container = styled.div`
   position: fixed;
@@ -252,7 +252,7 @@ const Sidebar = () => {
               <h4>Sarim Baig</h4>
             </Name>
 
-            <Logout onClick ={()=>history.push('/')}>
+            <Logout onClick ={()=>history.push('/')|| UserProfile.setLoggedIn(false)}>
               <img src={PowerOff} alt="logout" />
             </Logout>
           </Details>

@@ -41,3 +41,12 @@
 	background-position: right;
 	color: white;
 }
+.lec{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.datestyle{
+    height: fit-content;
+    align-self: center;
+}
