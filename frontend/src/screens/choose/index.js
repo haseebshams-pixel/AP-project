@@ -13,7 +13,7 @@ class Choose extends Component {
         return (
             <>
                 <div>
-                    <img class="wave" src={wave} />
+                    <img className="wave" src={wave} />
                 </div>
                 <div className="back">
                     <div className="head">

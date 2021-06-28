@@ -22,4 +22,5 @@ public class TranscriptCourseData {
     private int CourseID;
     private String Grade;
     private int TranscriptID;
+    private float Points;
 }

@@ -3,7 +3,9 @@ package com.flexlite.backend.Controller;
 import java.util.List;
 
 import com.flexlite.backend.Model.Course;
+import com.flexlite.backend.Model.RegisteredCourses;
 import com.flexlite.backend.Repository.CourseRepository;
+import com.flexlite.backend.Repository.RegisteredCoursesRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -25,7 +27,11 @@ public class CourseController {
     }
     @GetMapping("/getCourse/{studId}")
     public List<Course> GetCourses(@PathVariable("studId") Integer studId) {
-        return courseRepository.Get_CourseList(4);
+        return courseRepository.Get_CourseList(studId);
+    }
+    @GetMapping("/availableCourses/{studId}")
+    public List<Course> GetAvailableCourses(@PathVariable("studId") Integer studId) {
+        return courseRepository.Get_Availabe_CourseList(studId);
     }
     @PostMapping("/")
     public Course PostUser(@RequestBody Course user) {

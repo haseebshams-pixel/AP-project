@@ -23,6 +23,10 @@ public class RegistrationController {
     public Registration GetUser(@PathVariable Integer id) {
         return registrationRepository.findById(id).orElse(null);
     }
+    @GetMapping("/update/{regId}")
+    public int UpdateStatus(@PathVariable("regId") Integer regId) {
+        return registrationRepository.Update_Status(regId);
+    }
     @PostMapping("/")
     public Registration PostUser(@RequestBody Registration user) {
         return registrationRepository.save(user);

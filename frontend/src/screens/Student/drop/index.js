@@ -1,43 +1,42 @@
-import MotionHoc from '../MotionHoc';
 import React, { Component } from 'react'
+import axios from 'axios';
 
 
+import MotionHoc from '../MotionHoc';
 import './style.css'
+import UserProfile from '../../../Session';
 
 class DropComponent extends Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      course: [
-        {
-          id: 1,
-          code: '201',
-          name: 'Advance Programming',
-        },
-        {
-          id: 2,
-          code: '202',
-          name: 'Algorithms',
-        },
-        {
-          id: 3,
-          code: '202',
-          name: 'Software Design Analysis',
-        },
-      ]
+      courses: [],
+      registerId:0,
     };
   }
-
+  componentDidMount() {
+    axios.get(`http://localhost:8080/api/registeredCourses/getRegisteredCourse/${UserProfile.getId()}`)
+      .then((res) => {
+        this.setState({ courses: res.data });
+        console.log(this.state.courses);
+      })
+  }
   render() {
-    const listItems = this.state.course.map((item) => (
+    const listItems = this.state.courses.map((item) => (
       <tr>
-        <td width="150px">{item.code}</td>
+        <td width="150px">{item.courseCode}</td>
         <td width="250px">{item.name}</td>
-        <td ALIGN="center" width="115px">A</td>
-        <td ><button class="button">Drop!</button></td>
+        <td ALIGN="center" width="115px">{item.section_name}</td>
+        <td ><button class="button" onClick={()=>this.setState({registerId:item.registrationId},()=>handleClick())}>Drop!</button></td>
       </tr>
     ))
+    const handleClick = () => {
+      axios.delete(`http://localhost:8080/api/register/${this.state.registerId}`)
+        .then(() => {
+          this.componentDidMount();
+        })
+    }
     return (
       <div>
         <div class="first">

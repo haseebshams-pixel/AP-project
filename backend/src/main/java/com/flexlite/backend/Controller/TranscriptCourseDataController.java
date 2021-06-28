@@ -34,6 +34,7 @@ public class TranscriptCourseDataController {
        oldUser.setGrade(user.getGrade());
        oldUser.setTranscriptID(user.getTranscriptID());
        oldUser.setId(user.getId());
+       oldUser.setPoints(user.getPoints());
        return transcriptCourseDataRepository.save(oldUser);
     }
     @DeleteMapping("/{id}")

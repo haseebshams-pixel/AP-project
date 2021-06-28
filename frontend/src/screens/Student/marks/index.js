@@ -9,63 +9,48 @@ class MarkComponent extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      courses:[],
+      courses: [],
       courseName: '',
+      courseId: 0,
       open: false,
-      assignmentComp:false,
-      quizComp:false,
-      midsComp:false,
-      finalsComp:false,
-      course: [
-        {
-          code: 'CS2011',
-          name: 'Software Engineering',
-        },
-        {
-          code: 'CS2012',
-          name: 'Advance Programming',
-        },
-        {
-          code: 'CS2013',
-          name: 'Artificial Intelligence',
-        },
-        {
-          code: 'CS2014',
-          name: 'International Relations',
-        }
-      ],
-      assessment: [
-        {
-          weightage: 2,
-          ObtainedMarks: 30,
-          TotalMarks: 40,
-        },
-        {
-          weightage: 3,
-          ObtainedMarks: 33,
-          TotalMarks: 100,
-        },
-        {
-          weightage: 2,
-          ObtainedMarks: 100,
-          TotalMarks: 100,
-        },
-        {
-          weightage: 1,
-          ObtainedMarks: 100,
-          TotalMarks: 100,
-        }
-      ]
+      assignmentComp: false,
+      quizComp: false,
+      midsComp: false,
+      finalsComp: false,
+      assessments: [],
     };
   }
-  componentDidMount(){
+  componentDidMount() {
     axios.get(`http://localhost:8080/api/course/getCourse/${UserProfile.getId()}`)
-    .then((res)=>{
-      this.setState({courses:res.data})
-      console.log(this.state.courses)
-    })
+      .then((res) => {
+        this.setState({ courses: res.data })
+      })
   }
   render() {
+    const handleAssignbutton = () => {
+      axios.get(`http://localhost:8080/api/assessment/getAssessment/${UserProfile.getId()}/${this.state.courseId}/assignment`)
+        .then((res) => {
+          this.setState({ assessments: res.data })
+        })
+    }
+    const handleQuizbutton = () => {
+      axios.get(`http://localhost:8080/api/assessment/getAssessment/${UserProfile.getId()}/${this.state.courseId}/quiz`)
+        .then((res) => {
+          this.setState({ assessments: res.data })
+        })
+    }
+    const handleMidbutton = () => {
+      axios.get(`http://localhost:8080/api/assessment/getAssessment/${UserProfile.getId()}/${this.state.courseId}/mid`)
+        .then((res) => {
+          this.setState({ assessments: res.data })
+        })
+    }
+    const handleFinalbutton = () => {
+      axios.get(`http://localhost:8080/api/assessment/getAssessment/${UserProfile.getId()}/${this.state.courseId}/final`)
+        .then((res) => {
+          this.setState({ assessments: res.data })
+        })
+    }
     return (
       <>
         <div id="main">
@@ -73,9 +58,9 @@ class MarkComponent extends Component {
             <h1>Marks</h1>
           </div>
           <div id="second">
-            {this.state.course.map((item) =>
+            {this.state.courses.map((item) =>
             (
-              <button className="btun" onClick={() => this.setState({ courseName: item.name, open: true,assignmentComp:false,quizComp:false,midsComp:false,finalsComp:false})}>{item.code}</button>
+              <button className="btun" onClick={() => this.setState({ courseName: item.name, open: true, assignmentComp: false, quizComp: false, midsComp: false, finalsComp: false, courseId: item.id })}>{item.courseCode}</button>
             ))}
           </div>
         </div>
@@ -85,101 +70,101 @@ class MarkComponent extends Component {
               <h2>{this.state.courseName}</h2>
             </div>
             <div className="componenthead">
-              <button className="componentbtn" onClick={()=>this.setState({assignmentComp:!this.state.assignmentComp,quizComp:false,midsComp:false,finalsComp:false})}><h3>Assignments</h3></button>
+              <button className="componentbtn" onClick={() => this.setState({ assignmentComp: !this.state.assignmentComp, quizComp: false, midsComp: false, finalsComp: false }) || handleAssignbutton()}><h3>Assignments</h3></button>
             </div>
-            {this.state.assignmentComp?
-            <div className="componentbody">
-              <div class="tbl-headerr">
-                <table id="example" cellpadding="0" cellspacing="0" border="0">
-                  <thead><tr><td class="text">Weightage</td><td class="text">Obtained Marks</td><td class="text">Total Marks</td></tr></thead>
-                </table>
-              </div>
-              <div class="tbl-contentt">
-                <table id="example" cellpadding="0" cellspacing="0" border="0">
-                  <tbody>
-                    {this.state.assessment.map((item)=>(
-                      <tr>
-                      <td className={marksCss.tdd} >{item.weightage}</td>
-                      <td className={marksCss.tdd} >{item.ObtainedMarks}</td>
-                      <td className={marksCss.tdd} >{item.TotalMarks}</td>
-                    </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            </div> : null}
+            {this.state.assignmentComp ?
+              <div className="componentbody">
+                <div class="tbl-headerr">
+                  <table id="example" cellpadding="0" cellspacing="0" border="0">
+                    <thead><tr><td class="text">Weightage</td><td class="text">Obtained Marks</td><td class="text">Total Marks</td></tr></thead>
+                  </table>
+                </div>
+                <div class="tbl-contentt">
+                  <table id="example" cellpadding="0" cellspacing="0" border="0">
+                    <tbody>
+                      {this.state.assessments.map((item) => (
+                        <tr>
+                          <td className={marksCss.tdd} >{item.weightage}</td>
+                          <td className={marksCss.tdd} >{item.obtainedMarks}</td>
+                          <td className={marksCss.tdd} >{item.totalMarks}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div> : null}
             <div className="componenthead">
-              <button className="componentbtn" onClick={()=>this.setState({assignmentComp:false,quizComp:!this.state.quizComp,midsComp:false,finalsComp:false})}><h3>Quiz</h3></button>
+              <button className="componentbtn" onClick={() => this.setState({ assignmentComp: false, quizComp: !this.state.quizComp, midsComp: false, finalsComp: false })|| handleQuizbutton()}><h3>Quiz</h3></button>
             </div>
-            {this.state.quizComp?
-            <div className="componentbody">
-              <div class="tbl-headerr">
-                <table id="example" cellpadding="0" cellspacing="0" border="0">
-                  <thead><tr><td class="text">Weightage</td><td class="text">Obtained Marks</td><td class="text">Total Marks</td></tr></thead>
-                </table>
-              </div>
-              <div class="tbl-contentt">
-                <table id="example" cellpadding="0" cellspacing="0" border="0">
-                  <tbody>
-                    {this.state.assessment.map((item)=>(
-                      <tr>
-                      <td className={marksCss.tdd} >{item.weightage}</td>
-                      <td className={marksCss.tdd} >{item.ObtainedMarks}</td>
-                      <td className={marksCss.tdd} >{item.TotalMarks}</td>
-                    </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            </div> : null}
+            {this.state.quizComp ?
+              <div className="componentbody">
+                <div class="tbl-headerr">
+                  <table id="example" cellpadding="0" cellspacing="0" border="0">
+                    <thead><tr><td class="text">Weightage</td><td class="text">Obtained Marks</td><td class="text">Total Marks</td></tr></thead>
+                  </table>
+                </div>
+                <div class="tbl-contentt">
+                  <table id="example" cellpadding="0" cellspacing="0" border="0">
+                    <tbody>
+                      {this.state.assessments.map((item) => (
+                        <tr>
+                          <td className={marksCss.tdd} >{item.weightage}</td>
+                          <td className={marksCss.tdd} >{item.obtainedMarks}</td>
+                          <td className={marksCss.tdd} >{item.totalMarks}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div> : null}
             <div className="componenthead">
-              <button className="componentbtn" onClick={()=>this.setState({assignmentComp:false,quizComp:false,midsComp:!this.state.midsComp,finalsComp:false})}><h3>Mids</h3></button>
+              <button className="componentbtn" onClick={() => this.setState({ assignmentComp: false, quizComp: false, midsComp: !this.state.midsComp, finalsComp: false })|| handleMidbutton()}><h3>Mids</h3></button>
             </div>
-            {this.state.midsComp?
-            <div className="componentbody">
-              <div class="tbl-headerr">
-                <table id="example" cellpadding="0" cellspacing="0" border="0">
-                  <thead><tr><td class="text">Weightage</td><td class="text">Obtained Marks</td><td class="text">Total Marks</td></tr></thead>
-                </table>
-              </div>
-              <div class="tbl-contentt">
-                <table id="example" cellpadding="0" cellspacing="0" border="0">
-                  <tbody>
-                    {this.state.assessment.map((item)=>(
-                      <tr>
-                      <td className={marksCss.tdd} >{item.weightage}</td>
-                      <td className={marksCss.tdd} >{item.ObtainedMarks}</td>
-                      <td className={marksCss.tdd} >{item.TotalMarks}</td>
-                    </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            </div> : null}
+            {this.state.midsComp ?
+              <div className="componentbody">
+                <div class="tbl-headerr">
+                  <table id="example" cellpadding="0" cellspacing="0" border="0">
+                    <thead><tr><td class="text">Weightage</td><td class="text">Obtained Marks</td><td class="text">Total Marks</td></tr></thead>
+                  </table>
+                </div>
+                <div class="tbl-contentt">
+                  <table id="example" cellpadding="0" cellspacing="0" border="0">
+                    <tbody>
+                      {this.state.assessments.map((item) => (
+                        <tr>
+                          <td className={marksCss.tdd} >{item.weightage}</td>
+                          <td className={marksCss.tdd} >{item.obtainedMarks}</td>
+                          <td className={marksCss.tdd} >{item.totalMarks}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div> : null}
             <div className="componenthead">
-              <button className="componentbtn" onClick={()=>this.setState({assignmentComp:false,quizComp:false,midsComp:false,finalsComp:!this.state.finalsComp})}><h3>Finals</h3></button>
+              <button className="componentbtn" onClick={() => this.setState({ assignmentComp: false, quizComp: false, midsComp: false, finalsComp: !this.state.finalsComp })|| handleFinalbutton()}><h3>Finals</h3></button>
             </div>
-            {this.state.finalsComp?
-            <div className="componentbody">
-              <div class="tbl-headerr">
-                <table id="example" cellpadding="0" cellspacing="0" border="0">
-                  <thead><tr><td class="text">Weightage</td><td class="text">Obtained Marks</td><td class="text">Total Marks</td></tr></thead>
-                </table>
-              </div>
-              <div class="tbl-contentt">
-                <table id="example" cellpadding="0" cellspacing="0" border="0">
-                  <tbody>
-                    {this.state.assessment.map((item)=>(
-                      <tr>
-                      <td className={marksCss.tdd} >{item.weightage}</td>
-                      <td className={marksCss.tdd} >{item.ObtainedMarks}</td>
-                      <td className={marksCss.tdd} >{item.TotalMarks}</td>
-                    </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            </div> : null}
+            {this.state.finalsComp ?
+              <div className="componentbody">
+                <div class="tbl-headerr">
+                  <table id="example" cellpadding="0" cellspacing="0" border="0">
+                    <thead><tr><td class="text">Weightage</td><td class="text">Obtained Marks</td><td class="text">Total Marks</td></tr></thead>
+                  </table>
+                </div>
+                <div class="tbl-contentt">
+                  <table id="example" cellpadding="0" cellspacing="0" border="0">
+                    <tbody>
+                      {this.state.assessments.map((item) => (
+                        <tr>
+                          <td className={marksCss.tdd} >{item.weightage}</td>
+                          <td className={marksCss.tdd} >{item.obtainedMarks}</td>
+                          <td className={marksCss.tdd} >{item.totalMarks}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div> : null}
           </div> : null}
       </>
     )

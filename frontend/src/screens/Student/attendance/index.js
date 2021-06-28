@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
+import axios from 'axios';
 
+import UserProfile from '../../../Session';
 import MotionHoc from '../MotionHoc';
 import './styles.css';
 
@@ -8,54 +10,27 @@ class AttendanceComponent extends Component {
     super(props);
     this.state = {
       courseName: '',
+      courseId:0,
       open: false,
-      course: [
-        {
-          code: 'CS2011',
-          name: 'Software Engineering',
-        },
-        {
-          code: 'CS2012',
-          name: 'Advance Programming',
-        },
-        {
-          code: 'CS2013',
-          name: 'Artificial Intelligence',
-        },
-        {
-          code: 'CS2014',
-          name: 'International Relations',
-        }
-      ],
-      attendance: [
-        {
-          lecture: 1,
-          date: "09-March-2021",
-          Duration: 1.50,
-          Presence: 'P'
-        },
-        {
-          lecture: 1,
-          date: "11-March-2021",
-          Duration: 1.50,
-          Presence: 'P'
-        },
-        {
-          lecture: 1,
-          date: "16-March-2021",
-          Duration: 1.50,
-          Presence: 'P'
-        },
-        {
-          lecture: 1,
-          date: "18-March-2021",
-          Duration: 1.50,
-          Presence: 'A'
-        }
-      ]
+      courses:[],
+      attendances:[],
     };
   }
+  componentDidMount(){
+    axios.get(`http://localhost:8080/api/course/getCourse/${UserProfile.getId()}`)
+    .then((res) => {
+      this.setState({ courses: res.data })
+      console.log(this.state.courses);
+    })
+  }
   render() {
+    const handlebuttonclick=()=>{
+      axios.get(`http://localhost:8080/api/attendance/getAttendance/${UserProfile.getId()}/${this.state.courseId}`)
+        .then((res) => {
+          this.setState({ attendances: res.data })
+          console.log(this.state.attendances);
+        })
+    }
     return (
       <>
         <div id="main">
@@ -63,9 +38,9 @@ class AttendanceComponent extends Component {
             <h1>Attendance</h1>
           </div>
           <div id="second">
-            {this.state.course.map((item) =>
+            {this.state.courses.map((item) =>
             (
-              <button className="btun" onClick={() => this.setState({ courseName: item.name, open: true, assignmentComp: false, quizComp: false, midsComp: false, finalsComp: false })}>{item.code}</button>
+              <button className="btun" onClick={() => this.setState({ courseName: item.name, open: true ,courseId:item.id},()=>handlebuttonclick())}>{item.courseCode}</button>
             ))}
           </div>
         </div>
@@ -82,12 +57,12 @@ class AttendanceComponent extends Component {
             <div class="tbl-contentr">
               <table id="example" cellpadding="0" cellspacing="0" border="0">
                 <tbody>
-                  {this.state.attendance.map((item) => (
+                  {this.state.attendances.map((item) => (
                     <tr>
-                      <td width="100px">{item.lecture}</td>
+                      <td width="100px">{item.lecNo}</td>
                       <td width="100px">{item.date}</td>
-                      <td width="100px">{item.Duration}</td>
-                      <td width="100px">{item.Presence}</td>
+                      <td width="100px">1.5</td>
+                      <td width="100px">{item.status}</td>
                     </tr>
                   ))}
                 </tbody>

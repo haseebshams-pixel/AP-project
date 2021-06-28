@@ -23,6 +23,11 @@ public class AttendanceController {
     public Attendance GetUser(@PathVariable Integer id) {
         return AttendanceRepository.findById(id).orElse(null);
     }
+    @GetMapping("/getAttendance/{studId}/{courseId}")
+    public List<Attendance> GetAssessments(@PathVariable("studId") Integer studId,@PathVariable("courseId") Integer courseId) {
+        int x = AttendanceRepository.Get_SectionId(studId, courseId);
+        return AttendanceRepository.Get_AttendanceList(x,studId);
+    }
     @PostMapping("/")
     public Attendance PostUser(@RequestBody Attendance user) {
         return AttendanceRepository.save(user);

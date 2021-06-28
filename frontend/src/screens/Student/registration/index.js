@@ -1,9 +1,8 @@
 import React, { Component } from 'react'
-import DropdownButton from 'react-bootstrap/DropdownButton';
-import Dropdown from 'react-bootstrap/Dropdown'
+import axios from 'axios';
 
 import MotionHoc from '../MotionHoc';
-
+import UserProfile from '../../../Session';
 import './style.css'
 
 class RegistrationComponent extends Component {
@@ -12,34 +11,24 @@ class RegistrationComponent extends Component {
     super(props);
     this.state = {
       value:'A',
-      course: [
-        {
-          id: 1,
-          code: '201',
-          name: 'Advance Programming',
-        },
-        {
-          id: 2,
-          code: '202',
-          name: 'Algorithms',
-        },
-        {
-          id: 3,
-          code: '202',
-          name: 'Software Design Analysis',
-        },
-      ]
+      courses:[]
     };
     this.handleChange=this.handleChange.bind(this);
   }
+  componentDidMount(){
+    axios.get(`http://localhost:8080/api/course/availableCourses/${UserProfile.getId()}`)
+      .then((res) => {
+        this.setState({ courses: res.data });
+        console.log(this.state.courses);
+      })
+  }
   handleChange=(e)=>{
     this.setState({value:e.target.value});
-    //alert(this.state.value);
   }
   render() {
-    const listItems = this.state.course.map((item) => (
+    const listItems = this.state.courses.map((item) => (
       <tr>
-        <td width="150px">{item.code}</td>
+        <td width="150px">{item.courseCode}</td>
         <td width="250px">{item.name}</td>
         <td ALIGN="center" width="115px">
           <select  onChange={this.handleChange} value={this.state.value}>

@@ -23,6 +23,11 @@ public class AssessmentController {
     public Assessment GetUser(@PathVariable Integer id) {
         return assessmentRepository.findById(id).orElse(null);
     }
+    @GetMapping("/getAssessment/{studId}/{courseId}/{type}")
+    public List<Assessment> GetAssessments(@PathVariable("studId") Integer studId,@PathVariable("courseId") Integer courseId,@PathVariable("type") String asstype) {
+        int x = assessmentRepository.Get_SectionId(studId, courseId);
+        return assessmentRepository.Get_AssessmentList(x,studId,asstype);
+    }
     @PostMapping("/")
     public Assessment PostUser(@RequestBody Assessment user) {
         return assessmentRepository.save(user);
