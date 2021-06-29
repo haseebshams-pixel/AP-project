@@ -6,6 +6,7 @@ import './style.css';
 import { ReactComponent as BGIcon } from '../../../images/adminbg.svg';
 import { ReactComponent as AvatarIcon } from '../../../images/avatar.svg';
 import wave from '../../../images/wave.png';
+import UserProfile from '../../../Session';
 
 const Login = () => {
     const history = useHistory();
@@ -18,6 +19,8 @@ const Login = () => {
             console.log(res);
             if(res.data!=-1){
                 history.push("/adminhome");
+                UserProfile.setID(res.data);
+                UserProfile.setLoggedIn(true);
             } else {
                 alert('Incorrect Credentials');
             }

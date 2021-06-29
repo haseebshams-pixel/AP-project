@@ -1,81 +1,65 @@
 import React, { Component } from 'react'
+import axios from 'axios';
+import _, { map } from 'underscore';
+
 
 import './style.css';
 import MotionHoc from '../MotionHoc';
+import UserProfile from '../../../Session';
 
 class StudentComponent extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            students: [
+            student: [
                 {
-                    id: 1,
-                    rollno: '18L-1171',
-                    name: 'Haseeb Shams',
-                    batch:'2018',
-                    degree:'BS(CS)',
-                    cnic:'36501-6349484-7',
-                    phonenumber:'0307-7044820',
-                },
+                    rollNo: 1,
+                    batch: 2018,
+                    program: 'Cs'
+                }
+            ],
+            user: [
                 {
-                    id: 2,
-                    rollno: '18L-1089',
-                    name: 'Momin Iqbal',
-                    batch:'2018',
-                    degree:'BS(CS)',
-                    cnic:'36501-6349484-7',
-                    phonenumber:'0307-7044820',
-                },
-                {
-                    id: 3,
-                    rollno: '18L-0939',
-                    name: 'Saqlain Haider',
-                    batch:'2018',
-                    degree:'BS(CS)',
-                    cnic:'36501-6349484-7',
-                    phonenumber:'0307-7044820',
-                },
-                {
-                    id: 4,
-                    rollno: '18L-2152',
-                    name: 'Faiq Rauf',
-                    batch:'2018',
-                    degree:'BS(CS)',
-                    cnic:'36501-6349484-7',
-                    phonenumber:'0307-7044820',
-                },
-                {
-                    id: 5,
-                    rollno: '18L-1227',
-                    name: 'Naveed Ali',
-                    batch:'2018',
-                    degree:'BS(CS)',
-                    cnic:'36501-6349484-7',
-                    phonenumber:'0307-7044820',
-                },
-                {
-                    id: 6,
-                    rollno: '18L-1062',
-                    name: 'Hammad Ahmed',
-                    batch:'2018',
-                    degree:'BS(CS)',
-                    cnic:'36501-6349484-7',
-                    phonenumber:'0307-7044820',
-                },
-            ]
+                    name: 'Haseeb',
+                    cnic: '123131',
+                    mobileno: '5464654'
+                }
+            ],
+            users: [],
+            students: [],
         };
     }
+    componentDidMount() {
+        axios.get(`http://localhost:8080/api/user/students`)
+            .then((res) => {
+                console.log(res.data)
+                this.setState({
+                    users: res.data,
+                })
+            })
+        axios.get(`http://localhost:8080/api/student/`)
+            .then((res) => {
+                console.log(res.data)
+                this.setState({
+                    students: res.data,
+                })
+            })
+    }
     render() {
-        const listItems = this.state.students.map((item) => (
-            <tr>
-                <td width="100px">{item.rollno}</td>
-                <td width="100px">{item.name}</td>
-                <td width="170px">{item.cnic}</td>
-                <td width="100px">{item.phonenumber}</td>
-                <td width="100px">{item.batch}</td>
-                <td width="100px">{item.degree}</td>
-            </tr>
-        ))
+        const listItems = this.state.students.map((item, index) => {
+            const userContent = this.state.users[index];
+            return (
+                <tr>
+                    <td width="100px">{item.rollNo}</td>
+                    <td width="100px">{userContent.name}</td>
+                    <td width="170px">{userContent.cnic}</td>
+                    <td width="100px">{userContent.mobileno}</td>
+                    <td width="100px">{item.batch}</td>
+                    <td width="100px">{item.program}</td>
+                </tr>
+            );
+        });
+        
         return (
             <>
                 <div class="first">
@@ -96,9 +80,6 @@ class StudentComponent extends Component {
                             </table>
                         </div>
                     </div>
-                </div>
-                <div className="btnCont">
-                    <button className="btnddd"><h2>Add Student</h2></button>
                 </div>
 
             </>

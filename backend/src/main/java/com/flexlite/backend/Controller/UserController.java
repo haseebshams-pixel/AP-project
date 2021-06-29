@@ -19,6 +19,14 @@ public class UserController {
     public List<User> GetUsers() {
         return userRepository.findAll();
     }
+    @GetMapping("/students")
+    public List<User> GetStudents() {
+        return userRepository.Get_Student_info();
+    }
+    @GetMapping("/teachers")
+    public List<User> GetTeachers() {
+        return userRepository.Get_Teacher_Info();
+    }
     @GetMapping("/{id}")
     public User GetUser(@PathVariable Integer id) {
         return userRepository.findById(id).orElse(null);

@@ -13,6 +13,7 @@ class RegistrationComponent extends Component {
       value: 'A',
       courses: [],
       courseId: 0,
+      regBool:0,
     };
     this.handleChange = this.handleChange.bind(this);
   }
@@ -21,6 +22,10 @@ class RegistrationComponent extends Component {
       .then((res) => {
         this.setState({ courses: res.data });
         console.log(this.state.courses);
+      })
+    axios.get(`http://localhost:8080/api/department/getRegBool/${UserProfile.getId()}`)
+      .then((res) => {
+        this.setState({ regBool: res.data });
       })
   }
   handleChange = (e) => {
@@ -53,10 +58,12 @@ class RegistrationComponent extends Component {
             <option value="D">D</option>
           </select>
         </td>
-        <td ><button class="button" onClick={()=>handleClick()}>Register!</button></td>
+        <td ><button class="button" onClick={() => handleClick()}>Register!</button></td>
       </tr>
     ))
     return (
+      <>
+      {this.state.regBool?
       <div>
         <div class="first">
           <div class="second">
@@ -78,6 +85,8 @@ class RegistrationComponent extends Component {
           </div>
         </div>
       </div>
+      : <h1>Registration Close</h1>}
+      </>
     )
   }
 }

@@ -23,6 +23,26 @@ public class DepartmentController {
     public Department GetUser(@PathVariable Integer id) {
         return departmentRepository.findById(id).orElse(null);
     }
+    @GetMapping("/closeRegister/{adminId}")
+    public int Close_Registration(@PathVariable("adminId") Integer adminId) {
+        return departmentRepository.Close_Registration(adminId);
+    }
+    @GetMapping("/closeWithdraw/{adminId}")
+    public int Close_Withdraw(@PathVariable("adminId") Integer adminId) {
+        return departmentRepository.Close_Withdrawn(adminId);
+    }
+    @GetMapping("/startSemester/{adminId}")
+    public int StartSemester(@PathVariable("adminId") Integer adminId) {
+        return departmentRepository.Start_New_Semester(adminId);
+    }
+    @GetMapping("/getRegBool/{studId}")
+    public int Get_Reg_Bool(@PathVariable("studId") Integer studId) {
+        return departmentRepository.Get_RegistrationBool(studId);
+    }
+    @GetMapping("/getWithdrawBool/{studId}")
+    public int Get_Withdraw_Bool(@PathVariable("studId") Integer studId) {
+        return departmentRepository.Get_Withdraw(studId);
+    }
     @PostMapping("/")
     public Department PostUser(@RequestBody Department user) {
         return departmentRepository.save(user);

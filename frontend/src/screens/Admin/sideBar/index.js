@@ -7,6 +7,7 @@ import Home from "../assets/home-solid.svg";
 import PowerOff from "../assets/power-off-solid.svg";
 import Teacher from "../assets/teacher.svg";
 import Student from "../assets/student.svg"; 
+import UserProfile from "../../../Session";
 
 const Container = styled.div`
   position: fixed;
@@ -238,10 +239,10 @@ const Sidebar = () => {
           />
           <Details clicked={profileClick}>
             <Name>
-              <h4>Saqlain Haider</h4>
+              <h4>{UserProfile.getName()}</h4>
             </Name>
 
-            <Logout onClick ={()=>history.push('/')}>
+            <Logout onClick ={()=>history.push('/')|| UserProfile.setLoggedIn(false)}>
               <img src={PowerOff} alt="logout" />
             </Logout>
           </Details>

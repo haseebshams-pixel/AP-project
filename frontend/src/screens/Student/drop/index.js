@@ -13,6 +13,7 @@ class DropComponent extends Component {
     this.state = {
       courses: [],
       registerId: 0,
+      regBool: 0,
     };
   }
   componentDidMount() {
@@ -20,6 +21,11 @@ class DropComponent extends Component {
       .then((res) => {
         this.setState({ courses: res.data });
         console.log(this.state.courses);
+      })
+    axios.get(`http://localhost:8080/api/department/getRegBool/${UserProfile.getId()}`)
+      .then((res) => {
+        this.setState({ regBool: res.data });
+        console.log(res.data);
       })
   }
   render() {
@@ -42,27 +48,31 @@ class DropComponent extends Component {
 
     }
     return (
-      <div>
-        <div class="first">
-          <div class="second">
-            <h3 style={{ color: 'black' }}> Registered Courses! </h3>
-          </div>
+      <>
+        {this.state.regBool ?
           <div>
-            <div class="tbl-header">
-              <table id="example" cellpadding="0" cellspacing="0" border="0">
-                <thead><tr><td class="text" width="150px">Course Code</td><td class="text" width="250px">Course Name</td><td class="text" width="115px">Section</td><td class="text" width="150px">Register</td></tr></thead>
-              </table>
-            </div>
-            <div class="tbl-content">
-              <table id="example" cellpadding="0" cellspacing="0" border="0">
-                <tbody>
-                  {listItems}
-                </tbody>
-              </table>
+            <div class="first">
+              <div class="second">
+                <h3 style={{ color: 'black' }}> Registered Courses! </h3>
+              </div>
+              <div>
+                <div class="tbl-header">
+                  <table id="example" cellpadding="0" cellspacing="0" border="0">
+                    <thead><tr><td class="text" width="150px">Course Code</td><td class="text" width="250px">Course Name</td><td class="text" width="115px">Section</td><td class="text" width="150px">Register</td></tr></thead>
+                  </table>
+                </div>
+                <div class="tbl-content">
+                  <table id="example" cellpadding="0" cellspacing="0" border="0">
+                    <tbody>
+                      {listItems}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-      </div>
+          : <h1>Registeration Close</h1>}
+      </>
     )
   }
 }

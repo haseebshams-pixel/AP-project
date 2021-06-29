@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import axios from 'axios';
 
 import './style.css';
 import MotionHoc from '../MotionHoc';
@@ -7,75 +8,54 @@ class TeacherComponent extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            students: [
+            teacher: [
                 {
-                    id: 1,
+                    salary: 1,
+                    dateJoined: 2018,
+                }
+            ],
+            user: [
+                {
                     email: 'sarim.baig@nu.edu.pk',
-                    name: 'Sarim Baig',
-                    salary:100000,
-                    degree:'BS(CS)',
-                    cnic:'36501-6349484-7',
-                    phonenumber:'0307-7044820',
-                },
-                {
-                    id: 2,
-                    email: 'noshaba.nasir@nu.edu.pk',
-                    name: 'Noshaba Nasir',
-                    salary:100000,
-                    degree:'BS(CS)',
-                    cnic:'36501-6349484-7',
-                    phonenumber:'0307-7044820',
-                },
-                {
-                    id: 3,
-                    email: 'mubashir.qayyum@nu.edu.pk',
-                    name: 'Mubashir Qayyum',
-                    salary:100000,
-                    degree:'BS(CS)',
-                    cnic:'36501-6349484-7',
-                    phonenumber:'0307-7044820',
-                },
-                {
-                    id: 4,
-                    email: 'amir.ali@nu.edu.pk',
-                    name: 'Amir Ali',
-                    salary:100000,
-                    degree:'BS(CS)',
-                    cnic:'36501-6349484-7',
-                    phonenumber:'0307-7044820',
-                },
-                {
-                    id: 5,
-                    email: 'mubashir.baig@nu.edu.pk',
-                    name: 'Mubashir Baig',
-                    salary:100000,
-                    degree:'BS(CS)',
-                    cnic:'36501-6349484-7',
-                    phonenumber:'0307-7044820',
-                },
-                {
-                    id: 6,
-                    email: 'marium@nu.edu.pk',
-                    name: 'Marium Khalid',
-                    salary:100000,
-                    degree:'BS(CS)',
-                    cnic:'36501-6349484-7',
-                    phonenumber:'0307-7044820',
-                },
-            ]
+                    name: 'Haseeb',
+                    cnic: '123131',
+                    mobileno: '5464654'
+                }
+            ],
+            users: [],
+            teachers: [],
         };
     }
+    componentDidMount() {
+        axios.get(`http://localhost:8080/api/user/teachers`)
+            .then((res) => {
+                console.log(res.data)
+                this.setState({
+                    users: res.data,
+                })
+            })
+        axios.get(`http://localhost:8080/api/teacher/`)
+            .then((res) => {
+                console.log(res.data)
+                this.setState({
+                    teachers: res.data,
+                })
+            })
+    }
     render() {
-        const listItems = this.state.students.map((item) => (
-            <tr>
-                <td width="100px">{item.email}</td>
-                <td width="100px">{item.name}</td>
-                <td width="170px">{item.cnic}</td>
-                <td width="100px">{item.phonenumber}</td>
-                <td width="100px">{item.salary}</td>
-                <td width="100px">{item.degree}</td>
-            </tr>
-        ))
+        const listItems = this.state.teachers.map((item, index) => {
+            const userContent = this.state.users[index];
+            return(
+                <tr>
+                    <td width="100px">{userContent.email}</td>
+                    <td width="100px">{userContent.name}</td>
+                    <td width="170px">{userContent.cnic}</td>
+                    <td width="100px">{userContent.mobileno}</td>
+                    <td width="100px">{item.salary}</td>
+                    <td width="100px">{item.dateJoined}</td>
+                </tr>
+            );
+        })
         return (
             <>
                 <div class="first">
@@ -96,9 +76,6 @@ class TeacherComponent extends Component {
                             </table>
                         </div>
                     </div>
-                </div>
-                <div className="btnCont">
-                    <button className="btnddd"><h2>Add Teacher</h2></button>
                 </div>
 
             </>
