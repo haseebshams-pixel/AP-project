@@ -9,7 +9,7 @@ class MaintenanceComponent extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      id:0,
+      id:-1,
       name: '',
       username: '',
       cnic: '',

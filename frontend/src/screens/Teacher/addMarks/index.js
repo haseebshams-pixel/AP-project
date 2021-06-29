@@ -1,63 +1,56 @@
 import React, { Component } from 'react'
+import axios from 'axios';
 
 import MotionHoc from '../MotionHoc';
 import './style.css'
+import UserProfile from '../../../Session';
 
 class AddMarksComponent extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            date: '18-05-2021',
-            students: [
-                {
-                    id: 1,
-                    rollno: '18L-1171',
-                    name: 'Haseeb Shams',
-                },
-                {
-                    id: 2,
-                    rollno: '18L-1089',
-                    name: 'Momin Iqbal',
-                },
-                {
-                    id: 3,
-                    rollno: '18L-0939',
-                    name: 'Saqlain Haider',
-                },
-                {
-                    id: 4,
-                    rollno: '18L-2152',
-                    name: 'Faiq Rauf',
-                },
-                {
-                    id: 5,
-                    rollno: '18L-1227',
-                    name: 'Naveed Ali',
-                },
-                {
-                    id: 6,
-                    rollno: '18L-1062',
-                    name: 'Hammad Ahmed',
-                },
-            ],
-            assesment: [],
+            id:0,
+            totalMarks: 0,
+            obtainedMarks: 0,
+            weightage: 0,
+            value: '',
+            type: '',
+            registrationID: 0,
+            students: [],
         };
     }
     render() {
+        const submit = () => {
+            axios.post("http://localhost:8080/api/assessment/", {
+                totalMarks: this.state.totalMarks,
+                obtainedMarks: this.state.obtainedMarks,
+                type:this.state.type,
+                weightage:this.state.weightage,
+                registrationID: this.state.registrationID
+            })
+        }
         const listItems = this.state.students.map((item) => (
             <tr>
-                <td width="150px">{item.rollno}</td>
+                <td width="150px">{item.rollNo}</td>
                 <td width="140px">{item.name}</td>
-                <td ><input width="50px" placeholder="Obtained Marks" /></td>
-                <td ><input width="50px" placeholder="Total Marks" /></td>
-                <td ><input width="50px" placeholder="Weightage" /></td>
+                <td ><input width="50px" placeholder="Obtained Marks" type="number" onChange={(e)=>this.setState({obtainedMarks:e.target.value,registrationID:item.registrationid})}/></td>
+                <td ><input width="50px" placeholder="Total Marks" type="number" onChange={(e)=>this.setState({totalMarks:e.target.value,registrationID:item.registrationid})} /></td>
+                <td ><input width="50px" placeholder="Weightage" type="number" onChange={(e)=>this.setState({weightage:e.target.value,registrationID:item.registrationid})}/></td>
+                <td width="150px"><button className="button" onClick={()=>submit()}><h3>Save</h3></button></td>
 
             </tr>
         ))
+        const handleClick = () => {
+            axios.get(`http://localhost:8080/api/addAttendance/getRegisteredStudents/${this.state.value}/${UserProfile.getId()}`)
+                .then((res) => {
+                    this.setState({students: res.data });
+                    console.log(this.state.students);
+                })
+        }
         return (
             <>
                 <div className="starter">
-                    <div style={{ marginRight: "1%" }}>
+                    <div style={{ marginRight: "1%" }} onChange={(e) => this.setState({ value: e.target.value}, () => handleClick())} value={this.state.value}>
                         <select className="options">
                             <option value="-">-</option>
                             <option value="A">Section A</option>
@@ -66,13 +59,13 @@ class AddMarksComponent extends Component {
                             <option value="D">Section D</option>
                         </select>
                     </div>
-                    <div style={{ textAlign: 'center' }}>
+                    <div style={{ textAlign: 'center' }} onChange={(e) => this.setState({ type: e.target.value })} value={this.state.type}>
                         <select className="options">
                             <option value="-">-</option>
-                            <option value="Quiz">Quiz</option>
-                            <option value="Assignment">Assignment</option>
-                            <option value="Mid">Mid</option>
-                            <option value="Final">Final</option>
+                            <option value="quiz">Quiz</option>
+                            <option value="assignment">Assignment</option>
+                            <option value="mid">Mid</option>
+                            <option value="final">Final</option>
                         </select>
                     </div>
                 </div>
@@ -84,7 +77,7 @@ class AddMarksComponent extends Component {
                     <div>
                         <div class="table-header">
                             <table id="example" cellpadding="0" cellspacing="0" border="0">
-                                <thead><tr><td class="text" width="50px">Roll Number</td><td class="text" width="50px">Name</td><td class="text" width="100px">Obtained Marks</td><td class="text" width="100px">Total Marks</td><td class="text" width="100px">Weightage</td></tr></thead>
+                                <thead><tr><td class="text" width="50px">Roll Number</td><td class="text" width="50px">Name</td><td class="text" width="100px">Obtained Marks</td><td class="text" width="100px">Total Marks</td><td class="text" width="100px">Weightage</td><td class="text" width="100px">Status</td></tr></thead>
                             </table>
                         </div>
                         <div class="table-content">
@@ -95,9 +88,6 @@ class AddMarksComponent extends Component {
                             </table>
                         </div>
                     </div>
-                </div>
-                <div className="btnCont">
-                    <button className="btndd"><h2>Save</h2></button>
                 </div>
 
             </>

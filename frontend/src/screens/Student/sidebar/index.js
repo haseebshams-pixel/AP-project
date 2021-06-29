@@ -285,7 +285,7 @@ const Sidebar = () => {
           />
           <Details clicked={profileClick}>
             <Name>
-              <h4>Haseeb Shams</h4>
+              <h4>{UserProfile.getName()}</h4>
             </Name>
 
             <Logout onClick ={()=>history.push('/') || UserProfile.setLoggedIn(false)}>

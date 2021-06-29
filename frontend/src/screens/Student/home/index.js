@@ -23,6 +23,7 @@ class HomeComponent extends Component {
       this.setState({
         user:res.data,
       })
+    UserProfile.setName(this.state.user.name);
     })
     axios.get(`http://localhost:8080/api/student/${UserProfile.getId()}`)
     .then((res)=>{
