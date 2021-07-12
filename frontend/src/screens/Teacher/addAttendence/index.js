@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import axios from 'axios';
+import Cookies from 'js-cookie';
 
 import MotionHoc from '../MotionHoc';
 import UserProfile from '../../../Session';
@@ -17,6 +18,7 @@ class AddAttendanceComponent extends Component {
             status: '',
             registrationID: 0,
             students: [],
+            userId:Cookies.get("userId"),
         };
     }
     render() {
@@ -43,7 +45,7 @@ class AddAttendanceComponent extends Component {
             </tr>
         ))
         const handleClick = () => {
-            axios.get(`http://localhost:8080/api/addAttendance/getRegisteredStudents/${this.state.value}/${UserProfile.getId()}`)
+            axios.get(`http://localhost:8080/api/addAttendance/getRegisteredStudents/${this.state.value}/${this.state.userId}`)
                 .then((res) => {
                     this.setState({ students: res.data });
                     console.log(this.state.students);

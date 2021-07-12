@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import axios from 'axios';
+import Cookies from 'js-cookie';
 
 import MotionHoc from '../MotionHoc';
 import './style.css';
@@ -9,6 +10,7 @@ class MaintenanceComponent extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      userId : Cookies.get("userId"),
       id:-1,
       name: '',
       username: '',
@@ -25,7 +27,7 @@ class MaintenanceComponent extends Component {
     };
   }
   componentDidMount() {
-    axios.get(`http://localhost:8080/api/user/${UserProfile.getId()}`)
+    axios.get(`http://localhost:8080/api/user/${this.state.userId}`)
       .then((res) => {
         console.log(res.data)
         this.setState({

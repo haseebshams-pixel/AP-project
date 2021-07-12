@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import axios from 'axios';
-
+import Cookies from 'js-cookie';
 
 import MotionHoc from '../MotionHoc';
 import './style.css'
@@ -11,18 +11,19 @@ class DropComponent extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      userId : Cookies.get("userId"),
       courses: [],
       registerId: 0,
       regBool: 0,
     };
   }
   componentDidMount() {
-    axios.get(`http://localhost:8080/api/registeredCourses/getRegisteredCourse/${UserProfile.getId()}`)
+    axios.get(`http://localhost:8080/api/registeredCourses/getRegisteredCourse/${this.state.userId}`)
       .then((res) => {
         this.setState({ courses: res.data });
         console.log(this.state.courses);
       })
-    axios.get(`http://localhost:8080/api/department/getRegBool/${UserProfile.getId()}`)
+    axios.get(`http://localhost:8080/api/department/getRegBool/${this.state.userId}`)
       .then((res) => {
         this.setState({ regBool: res.data });
         console.log(res.data);

@@ -50,5 +50,7 @@ public class TranscriptData {
 		this.type = type;
 	}
     
-
+	public String transcript(String name){
+		return name;
+	}
 }

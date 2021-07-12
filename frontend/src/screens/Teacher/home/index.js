@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
 import axios from 'axios';
-
+import Cookies from 'js-cookie';
 
 import MotionHoc from '../MotionHoc';
 import UserProfile from '../../../Session';
 import './style.css'
+
 
 class HomeComponent extends Component {
 
@@ -12,20 +13,21 @@ class HomeComponent extends Component {
     super(props);
     this.state = {
       campus:'Lahore',
+      userId:Cookies.get("userId"),
       user:[],
       teacher:[],
     };
   }
   componentDidMount(){
-    axios.get(`http://localhost:8080/api/user/${UserProfile.getId()}`)
+    axios.get(`http://localhost:8080/api/user/${this.state.userId}`,{withCredentials: true})
     .then((res)=>{
     console.log(res.data)
       this.setState({
         user:res.data,
       })
-    UserProfile.setName(this.state.user.name);
+      UserProfile.setName(res.data.name);
     })
-    axios.get(`http://localhost:8080/api/teacher/${UserProfile.getId()}`)
+    axios.get(`http://localhost:8080/api/teacher/${this.state.userId}`)
     .then((res)=>{
       console.log(res.data)
       this.setState({

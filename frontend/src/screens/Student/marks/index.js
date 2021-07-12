@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import axios from 'axios';
+import Cookies from 'js-cookie';
 
 import MotionHoc from '../MotionHoc';
 import marksCss from './style.css';
@@ -9,6 +10,7 @@ class MarkComponent extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      userId : Cookies.get("userId"),
       courses: [],
       courseName: '',
       courseId: 0,
@@ -21,32 +23,32 @@ class MarkComponent extends Component {
     };
   }
   componentDidMount() {
-    axios.get(`http://localhost:8080/api/course/getCourse/${UserProfile.getId()}`)
+    axios.get(`http://localhost:8080/api/course/getCourse/${this.state.userId}}`)
       .then((res) => {
         this.setState({ courses: res.data })
       })
   }
   render() {
     const handleAssignbutton = () => {
-      axios.get(`http://localhost:8080/api/assessment/getAssessment/${UserProfile.getId()}/${this.state.courseId}/assignment`)
+      axios.get(`http://localhost:8080/api/assessment/getAssessment/${this.state.userId}/${this.state.courseId}/assignment`)
         .then((res) => {
           this.setState({ assessments: res.data })
         })
     }
     const handleQuizbutton = () => {
-      axios.get(`http://localhost:8080/api/assessment/getAssessment/${UserProfile.getId()}/${this.state.courseId}/quiz`)
+      axios.get(`http://localhost:8080/api/assessment/getAssessment/${this.state.userId}/${this.state.courseId}/quiz`)
         .then((res) => {
           this.setState({ assessments: res.data })
         })
     }
     const handleMidbutton = () => {
-      axios.get(`http://localhost:8080/api/assessment/getAssessment/${UserProfile.getId()}/${this.state.courseId}/mid`)
+      axios.get(`http://localhost:8080/api/assessment/getAssessment/${this.state.userId}/${this.state.courseId}/mid`)
         .then((res) => {
           this.setState({ assessments: res.data })
         })
     }
     const handleFinalbutton = () => {
-      axios.get(`http://localhost:8080/api/assessment/getAssessment/${UserProfile.getId()}/${this.state.courseId}/final`)
+      axios.get(`http://localhost:8080/api/assessment/getAssessment/${this.state.userId}/${this.state.courseId}/final`)
         .then((res) => {
           this.setState({ assessments: res.data })
         })

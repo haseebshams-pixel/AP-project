@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React, { Component } from 'react'
+import Cookies from 'js-cookie';
 import UserProfile from '../../../Session';
 
 import MotionHoc from '../MotionHoc';
@@ -12,20 +13,22 @@ class HomeComponent extends Component {
     super(props);
     this.state = {
       campus:'Lahore',
+      userId : Cookies.get("userId"),
       user:[],
       student:[],
     };
   }
   componentDidMount(){
-    axios.get(`http://localhost:8080/api/user/${UserProfile.getId()}`)
+    axios.get(`http://localhost:8080/api/user/${this.state.userId}`,{withCredentials: true})
     .then((res)=>{
     console.log(res.data)
+    console.log(this.state.userId)
       this.setState({
         user:res.data,
       })
-    UserProfile.setName(this.state.user.name);
+    UserProfile.setName(this.state.user.name)
     })
-    axios.get(`http://localhost:8080/api/student/${UserProfile.getId()}`)
+    axios.get(`http://localhost:8080/api/student/${this.state.userId}`)
     .then((res)=>{
       console.log(res.data)
       this.setState({

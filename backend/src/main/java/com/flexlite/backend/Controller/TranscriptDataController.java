@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.flexlite.backend.Model.TranscriptData;
 import com.flexlite.backend.Repository.TranscriptDataRepository;
+import com.flexlite.backend.Repository.UserRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

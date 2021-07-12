@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { NavLink, useHistory } from "react-router-dom";
+import axios from "axios";
 
 //All the svg files
 import Register from "../assets/registered.svg";
@@ -196,7 +197,16 @@ const Sidebar = () => {
 
   const [profileClick, setprofileClick] = useState(false);
   const handleProfileClick = () => setprofileClick(!profileClick);
-  
+  function authenticate () {
+    axios.get(`http://localhost:8080/api/user/logout`,{withCredentials: true})
+    .then((res)=>{
+        console.log(res);
+        if(res.data!=-1){
+          history.push('/')
+        }
+        
+    })
+}
   const history = useHistory();
   return (
     <Container>
@@ -288,7 +298,7 @@ const Sidebar = () => {
               <h4>{UserProfile.getName()}</h4>
             </Name>
 
-            <Logout onClick ={()=>history.push('/') || UserProfile.setLoggedIn(false)}>
+            <Logout onClick ={authenticate}>
               <img src={PowerOff} alt="logout" />
             </Logout>
           </Details>

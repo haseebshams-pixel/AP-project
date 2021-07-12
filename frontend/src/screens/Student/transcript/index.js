@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import axios from 'axios';
+import Cookies from 'js-cookie';
 
 import MotionHoc from '../MotionHoc';
 import './styles.css'
@@ -9,11 +10,12 @@ class TranscriptComponent extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      userId : Cookies.get("userId"),
       transcript:[],
     };
   }
   componentDidMount(){
-    axios.get(`http://localhost:8080/api/transcriptdata/${UserProfile.getId()}`)
+    axios.get(`http://localhost:8080/api/transcriptdata/${this.state.userId}`)
     .then((res)=>{
       this.setState({transcript:res.data});
       console.log(this.state.transcript)

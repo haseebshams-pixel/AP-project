@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import axios from 'axios';
+import Cookies from 'js-cookie';
 
 import UserProfile from '../../../Session';
 import MotionHoc from '../MotionHoc';
@@ -12,15 +13,16 @@ class WithdrawComponent extends Component {
       courses: [],
       registerId: 0,
       withDrawBool:0,
+      userId : Cookies.get("userId"),
     };
   }
   componentDidMount() {
-    axios.get(`http://localhost:8080/api/registeredCourses/getRegisteredCourse/${UserProfile.getId()}`)
+    axios.get(`http://localhost:8080/api/registeredCourses/getRegisteredCourse/${this.state.userId}`)
       .then((res) => {
         this.setState({ courses: res.data });
         console.log(this.state.courses);
       })
-    axios.get(`http://localhost:8080/api/department/getWithdrawBool/${UserProfile.getId()}`)
+    axios.get(`http://localhost:8080/api/department/getWithdrawBool/${this.state.userId}`)
       .then((res) => {
         this.setState({ withDrawBool: res.data });
         console.log(res.data);

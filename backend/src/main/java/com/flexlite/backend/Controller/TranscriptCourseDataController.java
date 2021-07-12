@@ -3,6 +3,7 @@ package com.flexlite.backend.Controller;
 import java.util.List;
 
 import com.flexlite.backend.Model.TranscriptCourseData;
+import com.flexlite.backend.Model.TranscriptData;
 import com.flexlite.backend.Repository.TranscriptCourseDataRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;

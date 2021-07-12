@@ -1,6 +1,7 @@
 import { Route, Switch, useLocation } from "react-router";
 import styled from "styled-components";
 import { AnimatePresence } from "framer-motion";
+import ReactSession from 'react-client-session';
 
 
 import Sidebar from "../sideBar";

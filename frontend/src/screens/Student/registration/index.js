@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import axios from 'axios';
+import Cookies from 'js-cookie';
 
 import MotionHoc from '../MotionHoc';
 import UserProfile from '../../../Session';
@@ -10,6 +11,7 @@ class RegistrationComponent extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      userId : Cookies.get("userId"),
       value: 'A',
       courses: [],
       courseId: 0,
@@ -18,12 +20,12 @@ class RegistrationComponent extends Component {
     this.handleChange = this.handleChange.bind(this);
   }
   componentDidMount() {
-    axios.get(`http://localhost:8080/api/course/availableCourses/${UserProfile.getId()}`)
+    axios.get(`http://localhost:8080/api/course/availableCourses/${this.state.userId}`)
       .then((res) => {
         this.setState({ courses: res.data });
         console.log(this.state.courses);
       })
-    axios.get(`http://localhost:8080/api/department/getRegBool/${UserProfile.getId()}`)
+    axios.get(`http://localhost:8080/api/department/getRegBool/${this.state.userId}`)
       .then((res) => {
         this.setState({ regBool: res.data });
       })
@@ -34,7 +36,7 @@ class RegistrationComponent extends Component {
   render() {
 
     const handleClick = () => {
-      axios.get(`http://localhost:8080/api/register/registerCourse/${UserProfile.getId()}/d${this.state.value}/${this.state.courseId}`)
+      axios.get(`http://localhost:8080/api/register/registerCourse/${this.state.userId}/d${this.state.value}/${this.state.courseId}`)
         .then((res) => {
           console.log(res.data);
           if (res.data == 1) {
