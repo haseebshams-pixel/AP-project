@@ -1,8 +1,8 @@
+import React, {useState} from "react";
 import { Route, Switch, useLocation } from "react-router";
 import styled from "styled-components";
 import { AnimatePresence } from "framer-motion";
-import ReactSession from 'react-client-session';
-
+import Cookies from "js-cookie";
 
 import Sidebar from "../sideBar";
 import Home from "../home"
@@ -21,24 +21,28 @@ const Pages = styled.div`
 
 function Main() {
   const location = useLocation();
-  return (
-    <>
-      {UserProfile.getLoggedIn() ?
-        <>
-          <Sidebar />
-          <Pages>
-            <AnimatePresence exitBeforeEnter>
-              <Switch location={location} key={location.pathname}>
-                <Route exact path="/adminhome" component={Home} />
-                <Route path="/adminhome/student" component={Student} />
-                <Route path="/adminhome/teacher" component={Teacher} />
-              </Switch>
-            </AnimatePresence>
-          </Pages>
-        </>
-        : <h1>ERROR PAGE NOT FOUND</h1>}
-    </>
-  );
+  const [loggedin, setLoggedin] = useState(Cookies.get("loggedin"));
+  const [type, setType] = useState(Cookies.get("type"));
+  if (loggedin && type === "admin") {
+    return (
+      <>
+        <Sidebar />
+        <Pages>
+          <AnimatePresence exitBeforeEnter>
+            <Switch location={location} key={location.pathname}>
+              <Route exact path="/adminhome" component={Home} />
+              <Route path="/adminhome/student" component={Student} />
+              <Route path="/adminhome/teacher" component={Teacher} />
+            </Switch>
+          </AnimatePresence>
+        </Pages>
+      </>
+    );
+  } else {
+    return (
+      <h1>ERROR PAGE NOT FOUND</h1>
+    )
+  }
 }
 
 export default Main;

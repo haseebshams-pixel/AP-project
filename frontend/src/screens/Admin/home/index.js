@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Modal, Button } from 'react-bootstrap';
 import axios from "axios";
+import Cookies from 'js-cookie';
 
 import './style.css';
 import MotionHoc from '../MotionHoc';
@@ -12,10 +13,11 @@ class HomeComponent extends Component {
         this.state = {
             admin: [],
             user: [],
+            userId:Cookies.get("userId"),
         }
     }
     componentDidMount() {
-        axios.get(`http://localhost:8080/api/user/${UserProfile.getId()}`)
+        axios.get(`http://localhost:8080/api/user/${this.state.userId}`,{withCredentials: true})
             .then((res) => {
                 console.log(res.data)
                 this.setState({
@@ -23,7 +25,7 @@ class HomeComponent extends Component {
                 })
                 UserProfile.setName(this.state.user.name);
             })
-        axios.get(`http://localhost:8080/api/admin/${UserProfile.getId()}`)
+        axios.get(`http://localhost:8080/api/admin/${this.state.userId}`)
             .then((res) => {
                 console.log(res.data)
                 this.setState({
@@ -33,7 +35,7 @@ class HomeComponent extends Component {
     }
     render() {
         const handleRegistration = () => {
-            axios.get(`http://localhost:8080/api/department/closeRegister/${UserProfile.getId()}`)
+            axios.get(`http://localhost:8080/api/department/closeRegister/${this.state.userId}`)
                 .then((res) => {
                     console.log(res.data)
                     if (res.data === -1) {
@@ -44,7 +46,7 @@ class HomeComponent extends Component {
                 })
         }
         const handleWithdraw = () => {
-            axios.get(`http://localhost:8080/api/department/closeWithdraw/${UserProfile.getId()}`)
+            axios.get(`http://localhost:8080/api/department/closeWithdraw/${this.state.userId}`)
                 .then((res) => {
                     console.log(res.data)
                     if (res.data === -1) {
@@ -55,13 +57,24 @@ class HomeComponent extends Component {
                 })
         }
         const handlesemester = () => {
-            axios.get(`http://localhost:8080/api/department/startSemester/${UserProfile.getId()}`)
+            axios.get(`http://localhost:8080/api/department/startSemester/${this.state.userId}`)
                 .then((res) => {
                     console.log(res.data)
                     if (res.data === -1) {
                         alert("Error");
                     } else {
                         alert("New Semester Started Successfully");
+                    }
+                })
+        }
+        const handletranscript = () => {
+            axios.get(`http://localhost:8080/api/transcript/generateTranscript/${this.state.user.departmentID}`)
+                .then((res) => {
+                    console.log(res.data)
+                    if (res.data === -1) {
+                        alert("Transcript cannot be Generated at the moment");
+                    } else {
+                        alert("Transcripts Generated Successfully");
                     }
                 })
         }
@@ -76,7 +89,7 @@ class HomeComponent extends Component {
                         <button className="modalbtn" onClick={()=>handleWithdraw()}>Close WithDrawal</button>
                     </div>
                     <div className="pair">
-                        <button className="modalbtn">Generate Transcript</button>
+                        <button className="modalbtn" onClick={()=>handletranscript()}>Generate Transcript</button>
                         <button className="modalbtn" onClick={()=>handlesemester()}>Start New Semester</button>
                     </div>
                 </div>

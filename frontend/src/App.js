@@ -25,6 +25,7 @@ function App() {
           <Route path="/studhome" component = {HomeMain}/>
           <Route path="/teachhome" component = {TeachMain}/>
           <Route path="/adminhome" component = {AdminMain}/>
+          <Route component = {Choose}/>
         </Switch>
       </AnimatePresence>
     </>

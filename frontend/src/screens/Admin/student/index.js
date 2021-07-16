@@ -16,9 +16,29 @@ class StudentComponent extends Component {
                     rollNo: 1,
                     batch: 2018,
                     program: 'Cs'
+                },
+                {
+                    rollNo: 1,
+                    batch: 2018,
+                    program: 'Cs'
+                },
+                {
+                    rollNo: 1,
+                    batch: 2018,
+                    program: 'Cs'
                 }
             ],
             user: [
+                {
+                    name: 'Haseeb',
+                    cnic: '123131',
+                    mobileno: '5464654'
+                },
+                {
+                    name: 'Haseeb',
+                    cnic: '123131',
+                    mobileno: '5464654'
+                },
                 {
                     name: 'Haseeb',
                     cnic: '123131',

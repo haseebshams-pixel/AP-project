@@ -1,10 +1,8 @@
 package com.flexlite.backend.Controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.flexlite.backend.Model.User;
@@ -16,7 +14,6 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api/user")
 @CrossOrigin(origins = { "http://localhost:3000" }, allowedHeaders = "*", allowCredentials = "true")
-@SessionAttributes("id")
 public class UserController {
     @Autowired
     private UserRepository userRepository;
@@ -43,7 +40,7 @@ public class UserController {
 
     @GetMapping("/{username}/{password}/{userType}")
     public int GetUser(@PathVariable("username") String username, @PathVariable("password") String password,
-            @PathVariable("userType") String userType,HttpServletResponse response) {
+            @PathVariable("userType") String userType, HttpServletResponse response) {
         int id = userRepository.User_Login(username, password, userType);
         Integer stId = id;
         Cookie cookie1 = new Cookie("userId", stId.toString());
@@ -86,19 +83,22 @@ public class UserController {
     @PutMapping("/")
     public User PutUser(@RequestBody User user) {
         User oldUser = userRepository.findById(user.getId()).orElse(null);
-        oldUser.setName(user.getName());
-        oldUser.setEmail(user.getEmail());
-        oldUser.setPassword(user.getPassword());
-        oldUser.setCNIC(user.getCNIC());
-        oldUser.setDOB(user.getDOB());
-        oldUser.setDepartmentID(user.getDepartmentID());
-        oldUser.setGender(user.getGender());
-        oldUser.setId(user.getId());
-        oldUser.setMobileno(user.getMobileno());
-        oldUser.setNationality(user.getNationality());
-        oldUser.setUserType(user.getUserType());
-        oldUser.setUsername(user.getUsername());
-        return userRepository.save(oldUser);
+        if (oldUser != null) {
+            oldUser.setName(user.getName());
+            oldUser.setEmail(user.getEmail());
+            oldUser.setPassword(user.getPassword());
+            oldUser.setCNIC(user.getCNIC());
+            oldUser.setDOB(user.getDOB());
+            oldUser.setDepartmentID(user.getDepartmentID());
+            oldUser.setGender(user.getGender());
+            oldUser.setId(user.getId());
+            oldUser.setMobileno(user.getMobileno());
+            oldUser.setNationality(user.getNationality());
+            oldUser.setUserType(user.getUserType());
+            oldUser.setUsername(user.getUsername());
+            return userRepository.save(oldUser);
+        }
+        return user;
     }
 
     @DeleteMapping("/{id}")

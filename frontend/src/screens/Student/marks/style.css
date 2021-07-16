@@ -62,13 +62,11 @@ table{
     background: linear-gradient(to right, #25c481, #25b7c4);
     
     display: flex;
-    position: relative;
    }
   .tbl-contentt{
     /*height:300px;*/
     max-height: 200px;
     display: flex;
-    position: relative;
     overflow-x:auto;
     margin-top: 0px;
     border: 1px solid rgba(255,255,255,0.3);

@@ -27,7 +27,8 @@ public class CourseController {
     }
     @GetMapping("/getCourse/{studId}")
     public List<Course> GetCourses(@PathVariable("studId") Integer studId) {
-        return courseRepository.Get_CourseList(studId);
+        List<Course> l1 = courseRepository.Get_CourseList(studId); 
+        return l1;
     }
     @GetMapping("/availableCourses/{studId}")
     public List<Course> GetAvailableCourses(@PathVariable("studId") Integer studId) {

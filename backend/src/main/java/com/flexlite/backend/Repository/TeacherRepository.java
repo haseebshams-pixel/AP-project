@@ -7,5 +7,6 @@ import org.springframework.data.jpa.repository.query.Procedure;
 import org.springframework.stereotype.Repository;
 @Repository
 public interface TeacherRepository extends JpaRepository<Teacher,Integer>{
-    
+    @Procedure
+    String Get_Teacher_Course(Integer teachid);
 }

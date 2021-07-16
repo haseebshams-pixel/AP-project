@@ -49,8 +49,4 @@ public class TranscriptData {
 	public void setType(String type) {
 		this.type = type;
 	}
-    
-	public String transcript(String name){
-		return name;
-	}
 }

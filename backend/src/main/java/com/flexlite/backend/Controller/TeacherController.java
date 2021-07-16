@@ -23,6 +23,10 @@ public class TeacherController {
     public Teacher GetUser(@PathVariable Integer id) {
         return teacherRepository.findById(id).orElse(null);
     }
+    @GetMapping("/course/{teachid}")
+    public String GetCourse(@PathVariable("teachid") Integer teachid) {
+        return teacherRepository.Get_Teacher_Course(teachid);
+    }
     @PostMapping("/")
     public Teacher PostUser(@RequestBody Teacher user) {
         return teacherRepository.save(user);

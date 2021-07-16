@@ -72,7 +72,7 @@ class DropComponent extends Component {
               </div>
             </div>
           </div>
-          : <h1>Registeration Close</h1>}
+          : <h1>Withdraw Close</h1>}
       </>
     )
   }

@@ -16,6 +16,7 @@ class HomeComponent extends Component {
       userId:Cookies.get("userId"),
       user:[],
       teacher:[],
+      courseName:'',
     };
   }
   componentDidMount(){
@@ -34,6 +35,13 @@ class HomeComponent extends Component {
         teacher:res.data,
       })
     })
+    axios.get(`http://localhost:8080/api/teacher/course/${this.state.userId}`)
+    .then((res)=>{
+      console.log(res.data)
+      this.setState({
+        courseName:res.data,
+      })
+    })
   }
   render() {
     return (
@@ -49,6 +57,7 @@ class HomeComponent extends Component {
             </div>
             <div class="columnspan">
               <p > <span style={{ fontweight: 300, marginleft: "-75%" }}><b> Date Joined : </b></span> <span> {this.state.teacher.dateJoined} </span> </p>
+              <p > <span style={{ fontweight: 300, marginleft: "-75%" }}><b> Course : </b></span> <span> {this.state.courseName} </span> </p>
             </div>
           </div>
         </div>

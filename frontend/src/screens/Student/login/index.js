@@ -48,7 +48,7 @@ const Login = () => {
                                         <i class="fas fa-user"></i>
                                     </div>
                                     <div class="div">
-                                        <input type="text" class="input" placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)} />
+                                        <input type="text" class="input" placeholder="Username" value={username} required onChange={(e) => setUsername(e.target.value)} />
                                     </div>
                                 </div>
                                 <div class="input-div pass">
@@ -56,7 +56,7 @@ const Login = () => {
                                         <i class="fas fa-lock"></i>
                                     </div>
                                     <div class="div">
-                                        <input type="password" class="input" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
+                                        <input type="password" class="input" placeholder="Password" value={password} required onChange={(e) => setPassword(e.target.value)} />
                                     </div>
                                 </div>
                                 <button className="btn" onClick={authenticate} >Login</button>
