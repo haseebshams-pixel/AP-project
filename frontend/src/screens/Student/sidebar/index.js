@@ -13,7 +13,7 @@ import Update from "../assets/update.svg";
 import Withdraw from "../assets/withdraw.svg";
 import Drop from "../assets/drop.svg";
 import PowerOff from "../assets/power-off-solid.svg";
-import UserProfile from '../../../Session';
+import UserProfile from "../../../Session";
 
 const Container = styled.div`
   position: fixed;
@@ -111,7 +111,6 @@ const Item = styled(NavLink)`
   img {
     width: 1.2rem;
     height: auto;
-    
   }
 `;
 
@@ -178,8 +177,8 @@ const Logout = styled.button`
   height: 2rem;
   background-color: transparent;
   img {
-    width: 100%;
-    height: auto;
+    width: 70%;
+    height: 70%;
     filter: invert(15%) sepia(70%) saturate(6573%) hue-rotate(2deg)
       brightness(100%) contrast(126%);
     transition: all 0.3s ease;
@@ -197,16 +196,16 @@ const Sidebar = () => {
 
   const [profileClick, setprofileClick] = useState(false);
   const handleProfileClick = () => setprofileClick(!profileClick);
-  function authenticate () {
-    axios.get(`http://localhost:8080/api/user/logout`,{withCredentials: true})
-    .then((res)=>{
+  function authenticate() {
+    axios
+      .get(`http://localhost:8080/api/user/logout`, { withCredentials: true })
+      .then((res) => {
         console.log(res);
-        if(res.data!=-1){
-          history.push('/')
+        if (res.data != -1) {
+          history.push("/");
         }
-        
-    })
-}
+      });
+  }
   const history = useHistory();
   return (
     <Container>
@@ -214,7 +213,7 @@ const Sidebar = () => {
         <text style={{ color: "#29bf8c" }}>Click</text>
       </Button>
       <SidebarContainer>
-      <Logo>
+        <Logo>
           <img src={Home} alt="logo" />
         </Logo>
         <SlickBar clicked={click}>
@@ -298,12 +297,11 @@ const Sidebar = () => {
               <h4>{UserProfile.getName()}</h4>
             </Name>
 
-            <Logout onClick ={authenticate}>
+            <Logout onClick={authenticate}>
               <img src={PowerOff} alt="logout" />
             </Logout>
           </Details>
         </Profile>
-
       </SidebarContainer>
     </Container>
   );

@@ -3,9 +3,7 @@ package com.flexlite.backend.Controller;
 import java.util.List;
 
 import com.flexlite.backend.Model.Course;
-import com.flexlite.backend.Model.RegisteredCourses;
 import com.flexlite.backend.Repository.CourseRepository;
-import com.flexlite.backend.Repository.RegisteredCoursesRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
